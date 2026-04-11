@@ -13,6 +13,7 @@ var connectionString = builder.Configuration.GetConnectionString("MSSQLConnectio
 builder.Services.AddDbContext<HotelListingsDbContext>(options =>
 options.UseSqlServer(connectionString));
 
+
 var app = builder.Build();
 
 app.UseHttpsRedirection();
