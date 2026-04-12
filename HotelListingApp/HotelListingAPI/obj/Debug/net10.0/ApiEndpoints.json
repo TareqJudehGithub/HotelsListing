@@ -110,7 +110,7 @@
   },
   {
     "ContainingType": "HotelListingAPI.Controllers.HotelsController",
-    "Method": "Get",
+    "Method": "GetHotels",
     "RelativePath": "api/Hotels",
     "HttpMethod": "GET",
     "IsController": true,
@@ -130,7 +130,7 @@
   },
   {
     "ContainingType": "HotelListingAPI.Controllers.HotelsController",
-    "Method": "Post",
+    "Method": "PostHotel",
     "RelativePath": "api/Hotels",
     "HttpMethod": "POST",
     "IsController": true,
@@ -156,7 +156,7 @@
   },
   {
     "ContainingType": "HotelListingAPI.Controllers.HotelsController",
-    "Method": "Get",
+    "Method": "GetHotel",
     "RelativePath": "api/Hotels/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -182,7 +182,7 @@
   },
   {
     "ContainingType": "HotelListingAPI.Controllers.HotelsController",
-    "Method": "Put",
+    "Method": "PutHotel",
     "RelativePath": "api/Hotels/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -199,21 +199,11 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "HotelListingAPI.Data.Hotel",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "HotelListingAPI.Controllers.HotelsController",
-    "Method": "Delete",
+    "Method": "DeleteHotel",
     "RelativePath": "api/Hotels/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -225,16 +215,6 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "HotelListingAPI.Data.Hotel",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   }
 ]

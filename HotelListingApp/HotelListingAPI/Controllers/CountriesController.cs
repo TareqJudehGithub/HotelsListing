@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HotelListingAPI.Data;
@@ -24,7 +20,9 @@ public class CountriesController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Country>>> GetCountries()
     {
-        var countries = await _context.Countries.ToListAsync();
+        var countries = await _context.Countries
+            .Include(q => q.Hotels)
+            .ToListAsync();
 
         // If Countries entity has no records yet
         if (!_context.Countries.Any())
@@ -41,6 +39,7 @@ public class CountriesController : ControllerBase
     public async Task<ActionResult<Country>> GetCountry([FromRoute] int id)
     {
         var country = await _context.Countries
+            .Include(q => q.Hotels)
             .FirstOrDefaultAsync(q => q.Id == id);
 
         if (!_context.Countries.Any())
