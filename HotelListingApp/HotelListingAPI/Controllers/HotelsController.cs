@@ -20,7 +20,7 @@ public class HotelsController : ControllerBase
     public async Task<ActionResult<IEnumerable<Hotel>>> GetHotels()
     {
         var hotels = await _context.Hotels
-            .Include(h => h.Country)   // Include country navigation property
+            //  .Include(h => h.Country)   // Include country navigation property
             .ToListAsync();
 
         if (!hotels.Any())
