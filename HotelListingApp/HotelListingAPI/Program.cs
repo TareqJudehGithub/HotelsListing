@@ -1,4 +1,6 @@
+using HotelListingAPI.Contracts;
 using HotelListingAPI.Data;
+using HotelListingAPI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,10 @@ builder.Services.AddControllers()
 var connectionString = builder.Configuration.GetConnectionString("MSSQLConnection");
 builder.Services.AddDbContext<HotelListingsDbContext>(options =>
 options.UseSqlServer(connectionString));
+
+// Adding Service Layer
+builder.Services.AddScoped<ICountriesServices, CountriesService>();
+
 
 var app = builder.Build();
 
