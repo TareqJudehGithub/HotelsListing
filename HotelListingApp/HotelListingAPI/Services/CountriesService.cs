@@ -3,7 +3,6 @@ using HotelListingAPI.Data;
 using HotelListingAPI.DTOs.Country;
 using HotelListingAPI.DTOs.Hotel;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.Metrics;
 
 namespace HotelListingAPI.Services;
 
@@ -68,6 +67,12 @@ public class CountriesService : ICountriesServices
             ShortName = countryDto.ShortName
         };
 
+        // Check for id duplicate
+        await CountryExistsAsync(id: country.Id);
+
+        // Check for name duplicate
+        await CountryExistsAsync(name: country.Name);
+
         await _context.Countries.AddAsync(country);
         await _context.SaveChangesAsync();
 
@@ -75,7 +80,8 @@ public class CountriesService : ICountriesServices
             Id: country.Id,
             Name: country.Name,
             ShortName: country.ShortName,
-            Hotels: []);
+            Hotels: []
+            );
 
         return resultDto;
     }
@@ -92,7 +98,6 @@ public class CountriesService : ICountriesServices
         // update country records and save
         country.Name = updateDto.Name;
         country.ShortName = updateDto.ShortName;
-
         _context.Update(country);
         await _context.SaveChangesAsync();
     }
@@ -108,6 +113,15 @@ public class CountriesService : ICountriesServices
         _context.Countries.Remove(country);
         await _context.SaveChangesAsync();
     }
-    #endregion
 
+    public async Task<bool> CountryExistsAsync(int id)
+    {
+        return await _context.Countries.AnyAsync(e => e.Id == id);
+    }
+    public async Task<bool> CountryExistsAsync(string name)
+    {
+        return await _context.Countries.AnyAsync(e => e.Name == name);
+    }
+
+    #endregion
 }

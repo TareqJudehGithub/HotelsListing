@@ -7,7 +7,7 @@ namespace HotelListingAPI.DTOs.Country
     {
         [Required]
         [Display(Name = "Country Name")]
-        [Length(minimumLength: 3, maximumLength: 12, ErrorMessage = "Country name must be between {1} and {2} characters.")]
+        [Length(minimumLength: 3, maximumLength: 25, ErrorMessage = "Country name must be between {1} and {2} characters.")]
         public required string Name { get; set; }
 
         [Required]

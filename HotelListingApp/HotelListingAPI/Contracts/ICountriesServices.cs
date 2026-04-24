@@ -10,4 +10,6 @@ public interface ICountriesServices
     Task<GetCountryDto> CreateCountry(CreateCountryDto countryDto);
     Task UpdateCountryAsync(int id, UpdateCountryDto updateDto);
     Task DeleteCountryAsync(int Id);
+    Task<bool> CountryExistsAsync(int id);
+    Task<bool> CountryExistsAsync(string name);
 }

@@ -1,24 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{4B28D726-B3AC-A51E-B08D-91539E7B6DD4}|HotelListingAPI\\HotelListingAPI.csproj|e:\\webdev\\trevor\\hotelmng\\hotellistingapp\\hotellistingapi\\contracts\\icountriesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4B28D726-B3AC-A51E-B08D-91539E7B6DD4}|HotelListingAPI\\HotelListingAPI.csproj|solutionrelative:hotellistingapi\\contracts\\icountriesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4B28D726-B3AC-A51E-B08D-91539E7B6DD4}|HotelListingAPI\\HotelListingAPI.csproj|e:\\webdev\\trevor\\hotelmng\\hotellistingapp\\hotellistingapi\\services\\countriesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4B28D726-B3AC-A51E-B08D-91539E7B6DD4}|HotelListingAPI\\HotelListingAPI.csproj|solutionrelative:hotellistingapi\\services\\countriesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4B28D726-B3AC-A51E-B08D-91539E7B6DD4}|HotelListingAPI\\HotelListingAPI.csproj|e:\\webdev\\trevor\\hotelmng\\hotellistingapp\\hotellistingapi\\controllers\\countriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4B28D726-B3AC-A51E-B08D-91539E7B6DD4}|HotelListingAPI\\HotelListingAPI.csproj|solutionrelative:hotellistingapi\\controllers\\countriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4B28D726-B3AC-A51E-B08D-91539E7B6DD4}|HotelListingAPI\\HotelListingAPI.csproj|e:\\webdev\\trevor\\hotelmng\\hotellistingapp\\hotellistingapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4B28D726-B3AC-A51E-B08D-91539E7B6DD4}|HotelListingAPI\\HotelListingAPI.csproj|solutionrelative:hotellistingapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -26,60 +9,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Program.cs",
-              "DocumentMoniker": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\Program.cs",
-              "RelativeDocumentMoniker": "HotelListingAPI\\Program.cs",
-              "ToolTip": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\Program.cs",
-              "RelativeToolTip": "HotelListingAPI\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-17T16:54:58.002Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ICountriesServices.cs",
-              "DocumentMoniker": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\Contracts\\ICountriesServices.cs",
-              "RelativeDocumentMoniker": "HotelListingAPI\\Contracts\\ICountriesServices.cs",
-              "ToolTip": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\Contracts\\ICountriesServices.cs",
-              "RelativeToolTip": "HotelListingAPI\\Contracts\\ICountriesServices.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-17T16:51:01.453Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CountriesService.cs",
-              "DocumentMoniker": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\Services\\CountriesService.cs",
-              "RelativeDocumentMoniker": "HotelListingAPI\\Services\\CountriesService.cs",
-              "ToolTip": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\Services\\CountriesService.cs",
-              "RelativeToolTip": "HotelListingAPI\\Services\\CountriesService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADgAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-17T16:35:19.385Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CountriesController.cs",
-              "DocumentMoniker": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\Controllers\\CountriesController.cs",
-              "RelativeDocumentMoniker": "HotelListingAPI\\Controllers\\CountriesController.cs",
-              "ToolTip": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\Controllers\\CountriesController.cs",
-              "RelativeToolTip": "HotelListingAPI\\Controllers\\CountriesController.cs",
-              "ViewState": "AgIAAJYAAAAAAAAAAAAkwK8AAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-17T16:44:38.361Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"

@@ -14,7 +14,7 @@ namespace HotelListingAPI.Data
         public int CountryId { get; set; }
         // Navigation property to represent the relationship with the country.
         // One country can have many hotels, but each hotel belongs to one country.
-        public Country? Country { get; set; }
+        public required Country Country { get; set; }
     }
 }
 

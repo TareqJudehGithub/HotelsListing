@@ -9,5 +9,4 @@ namespace HotelListingAPI.DTOs.Country
         string ShortName,
         List<GetHotelsDto> Hotels
         );
-
 }
