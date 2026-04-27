@@ -4,12 +4,13 @@ using AutoMapper;
 using HotelListingAPI.Contracts;
 using HotelListingAPI.Data;
 using HotelListingAPI.DTOs.Hotel;
+using HotelListingAPI.Constants;
 
 namespace HotelListingAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class HotelsController : ControllerBase
+public class HotelsController : BaseApiController
 {
     private readonly IHotelsServices _hotelsServices;
     private readonly IMapper _mapper;
@@ -28,12 +29,7 @@ public class HotelsController : ControllerBase
     public async Task<ActionResult<IEnumerable<GetHotelDto>>> GetHotels()
     {
         var hotelsDto = await _hotelsServices.GetHotelsAsync();
-
-        if (!hotelsDto.Any())
-        {
-            return NotFound(new { message = "Hotels list is empty." });
-        }
-        return Ok(hotelsDto);
+        return ToActionResult(hotelsDto);
 
         #region previous code
         // Get Hotels list directly from Hotels entity.
@@ -48,12 +44,7 @@ public class HotelsController : ControllerBase
     public async Task<ActionResult<GetHotelDto>> GetHotel(int id)
     {
         var hotelDto = await _hotelsServices.GetHotelAsync(id);
-
-        if (hotelDto is null)
-        {
-            return NotFound(new { message = $"Hotel with Id: {id} was not found." });
-        }
-        return Ok(hotelDto);
+        return ToActionResult(hotelDto);
 
         // Or
         //var hotel = await _context.Hotels
@@ -82,13 +73,14 @@ public class HotelsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Hotel>> PostHotel([FromBody] CreateHotelDto createHotelDto)
     {
-        var resultDto = await _hotelsServices.CreateHotelAsync(createHotelDto);
+        var result = await _hotelsServices.CreateHotelAsync(createHotelDto);
 
-        if (resultDto is null)
+        // Check for any error
+        if (!result.IsSuccess)
         {
-            return BadRequest(new { message = "Error creating new hotel." });
+            return MapErrorsToResponse(errors: result.Errors);
         }
-        return CreatedAtAction(nameof(GetHotel), new { id = resultDto.Id }, resultDto);
+        return CreatedAtAction(nameof(GetHotel), new { id = result.Value!.Id }, result);
     }
 
     // PUT: api/Hotels/5
@@ -96,14 +88,8 @@ public class HotelsController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> PutHotel([FromRoute] int id, [FromBody] UpdateHotelDto hotelDto)
     {
-        if (id != hotelDto.Id || hotelDto is null)
-        {
-            return BadRequest(new { message = "Hotel not found. No Id was provided" });
-        }
-
-        await _hotelsServices.UpdateHotelAsync(id, hotelDto);
-
-        return Ok(hotelDto);
+        var result = await _hotelsServices.UpdateHotelAsync(id, hotelDto);
+        return ToActionResult(result: result);
 
         #region Code before Layer Service
         //// Mark the Hotel entity as modified
@@ -134,9 +120,7 @@ public class HotelsController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteHotel([FromRoute] int id)
     {
-        await _hotelsServices.DeleteHotelAsync(id);
-
-        var hotels = await _hotelsServices.GetHotelsAsync();
-        return Ok(hotels);
+        var result = await _hotelsServices.DeleteHotelAsync(id);
+        return ToActionResult(result: result);
     }
 }

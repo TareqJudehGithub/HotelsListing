@@ -9,6 +9,9 @@ public class HotelMappingProfile : Profile
 {
     public HotelMappingProfile()
     {
+        // add this map for the DTO used by Country.GetCountryDto.Hotels
+        CreateMap<Hotel, GetHotelsDto>();
+
         CreateMap<Hotel, GetHotelDto>()
            // For the destination Country (string), map from the source (Country entity: Name property)         
            .ForMember(d => d.CountryName, cfg => cfg

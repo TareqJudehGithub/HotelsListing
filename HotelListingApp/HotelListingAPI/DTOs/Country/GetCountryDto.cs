@@ -2,11 +2,11 @@
 
 namespace HotelListingAPI.DTOs.Country
 {
-    public record GetCountryDto
-    (
-        int Id,
-        string Name,
-        string ShortName,
-        List<GetHotelsDto> Hotels
-        );
+    public class GetCountryDto
+    {
+        public int CountryId { get; set; }
+        public required string Name { get; set; }
+        public required string ShortName { get; set; }
+        public List<GetHotelsDto> Hotels { get; set; } = [];
+    }
 }
