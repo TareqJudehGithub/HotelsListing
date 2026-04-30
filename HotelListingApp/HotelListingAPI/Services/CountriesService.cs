@@ -1,13 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using AutoMapper;
+﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-
-using HotelListingAPI.Contracts;
+using HotelListingAPI.Constants;
 using HotelListingAPI.Data;
 using HotelListingAPI.DTOs.Country;
 using HotelListingAPI.Results;
-using HotelListingAPI.DTOs.Hotel;
-using HotelListingAPI.Constants;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelListingAPI.Services;
 

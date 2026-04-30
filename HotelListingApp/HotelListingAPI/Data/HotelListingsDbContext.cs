@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelListingAPI.Data
 {
-    public class HotelListingsDbContext : DbContext
+    public class HotelListingsDbContext : IdentityDbContext<ApplicationUser>
     {
         #region Constructors
         public HotelListingsDbContext(DbContextOptions<HotelListingsDbContext> options) : base(options)
