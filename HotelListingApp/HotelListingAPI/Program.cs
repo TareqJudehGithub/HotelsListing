@@ -5,6 +5,9 @@ using HotelListingAPI.Contracts;
 using HotelListingAPI.Services;
 using HotelListingAPI.MappingProfiles;
 using Microsoft.AspNetCore.Identity;
+using HotelListingAPI.Constants;
+using Microsoft.AspNetCore.Authentication;
+using HotelListingAPI.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +45,16 @@ builder.Services.AddIdentityApiEndpoints<ApplicationUser>(options =>
 )
     // Identity Database store location
     .AddEntityFrameworkStores<HotelListingsDbContext>();
+
+// Basic Authentication 
+builder.Services.AddAuthentication(options =>
+{
+    // Add scheme
+    options.DefaultAuthenticateScheme = AuthenticationDefaults.BasicScheme;
+    options.DefaultChallengeScheme = AuthenticationDefaults.BasicScheme;
+})
+    // Handle scheme
+    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>(AuthenticationDefaults.BasicScheme, _ => { });
 
 // Register AddAuthorization service
 builder.Services.AddAuthorization();

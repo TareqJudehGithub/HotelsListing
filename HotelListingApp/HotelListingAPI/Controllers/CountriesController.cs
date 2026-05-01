@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-using HotelListingAPI.Data;
+﻿using HotelListingAPI.Data;
 using HotelListingAPI.DTOs.Country;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 namespace HotelListingAPI.Controllers;
 
 [Route("api/[controller]")]
@@ -16,6 +16,7 @@ public class CountriesController : BaseApiController
 
     // GET: api/Countries
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<IEnumerable<GetCountriesDto>>> GetCountries()
     {
         var result = await _countriesServices.GetCountriesAsync();

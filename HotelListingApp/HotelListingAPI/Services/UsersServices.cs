@@ -87,7 +87,7 @@ public class UsersServices : IUsersServices
         return Result<string>.Success($"User {user.Email} logged in successfully!");
 
     }
-    public async Task<Result<string>> LogoutAsync(LoginUserDto loginUserDto)
+    public async Task<Result<string>> LogoutAsync()
     {
         await _signInManager.SignOutAsync();
         return Result<string>.Success("User logged out successfully.");
