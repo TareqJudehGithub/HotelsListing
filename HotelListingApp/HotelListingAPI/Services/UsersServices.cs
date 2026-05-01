@@ -11,12 +11,17 @@ public class UsersServices : IUsersServices
 {
     #region Fields
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager;
     #endregion
 
     #region Constructors
-    public UsersServices(UserManager<ApplicationUser> userManager)
+    public UsersServices(
+        UserManager<ApplicationUser> userManager,
+          SignInManager<ApplicationUser> signInManager
+        )
     {
         _userManager = userManager;
+        _signInManager = signInManager;
     }
     #endregion
 
@@ -81,6 +86,24 @@ public class UsersServices : IUsersServices
         // return success result
         return Result<string>.Success($"User {user.Email} logged in successfully!");
 
+    }
+    public async Task<Result<string>> LogoutAsync(LoginUserDto loginUserDto)
+    {
+        await _signInManager.SignOutAsync();
+        return Result<string>.Success("User logged out successfully.");
+    }
+
+    public async Task<Result<string>> DeleteAsync(DeleteUserDto deleteUserDto)
+    {
+        var user = await _userManager.FindByEmailAsync(deleteUserDto.Email);
+        if (user == null)
+        {
+            return Result<string>
+                .NotFound(errors: new Error(Code: ErrorCodes.NotFound, Description: $"Invalid username."));
+        }
+        await _userManager.DeleteAsync(user);
+
+        return Result<string>.Success($"Username: {user.UserName} was as successfully deleted.");
     }
     #endregion
 }

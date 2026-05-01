@@ -55,13 +55,22 @@ namespace HotelListingAPI.Controllers
             return ToActionResult(result);
         }
 
+        // Delete: "api/auth/delete"
+        [HttpDelete]
+        [Route("delete")]
+        public async Task<ActionResult<string>> Delete([FromBody] DeleteUserDto deleteUseDto)
+        {
+            var result = await _usersServices.DeleteAsync(deleteUseDto);
+            return ToActionResult(result);
+        }
+
         // GET: "api/auth/logout"
         [HttpGet]
         [Route("logout")]
-        public async Task<IActionResult> Logout()
+        public async Task<ActionResult<string>> Logout()
         {
-            await _signInManager.SignOutAsync();
-            return Ok();
+            var result = await _usersServices.LogoutAsync();
+            return ToActionResult(result);
         }
 
     }
