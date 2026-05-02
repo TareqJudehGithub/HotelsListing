@@ -4,6 +4,10 @@ using HotelListingAPI.Data;
 using HotelListingAPI.DTOs.Auth;
 using HotelListingAPI.Results;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace HotelListingAPI.Services;
 
@@ -12,16 +16,19 @@ public class UsersServices : IUsersServices
     #region Fields
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly IConfiguration _config;
     #endregion
 
     #region Constructors
     public UsersServices(
         UserManager<ApplicationUser> userManager,
-          SignInManager<ApplicationUser> signInManager
+          SignInManager<ApplicationUser> signInManager,
+        IConfiguration iconfiguration
         )
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _config = iconfiguration;
     }
     #endregion
 
@@ -83,8 +90,11 @@ public class UsersServices : IUsersServices
                 .BadRequest(errors: new Error(Code: ErrorCodes.BadRequest, Description: "Invalid username or password"));
         }
 
+        // Issue a token
+        var token = await GenerateToken(user: user);
+
         // return success result
-        return Result<string>.Success($"User {user.Email} logged in successfully!");
+        return Result<string>.Success(token);
 
     }
     public async Task<Result<string>> LogoutAsync()
@@ -105,5 +115,44 @@ public class UsersServices : IUsersServices
 
         return Result<string>.Success($"Username: {user.UserName} was as successfully deleted.");
     }
+
+    private async Task<string> GenerateToken(ApplicationUser user)
+    {
+        // Set basic user claims
+        var claims = new List<Claim>
+        {
+            new (type: JwtRegisteredClaimNames.Sub, value: user.Id),
+            new (type: JwtRegisteredClaimNames.Email, value: user.Email),
+            new (type: JwtRegisteredClaimNames.Jti, value: Guid.NewGuid().ToString()),
+            new(type: JwtRegisteredClaimNames.Name, value: $"{user.FullName}")
+        };
+        // Set user Role claims
+        var roles = await _userManager.GetRolesAsync(user: user);
+
+        // Convert user roles into claims list
+        var roleClaims = roles.Select(q => new Claim(type: ClaimTypes.Role, value: q)).ToList();
+
+        claims = claims.Union(roleClaims).ToList();
+
+        // Set JWT key credentials
+        // retrieve JWT security key
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JwtSettings:Key"]));
+        // Hash the new securityKey with HmacSha256
+        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+        // Create an encoded token
+        var token = new JwtSecurityToken(
+            issuer: _config["JwtSettings:Issuer"],
+            audience: _config["JwtSettings:Audience"],
+            claims: claims,
+            expires: DateTime.UtcNow.AddMinutes(Convert.ToInt32(_config["JwtSettings:DurationInMinutes"])),
+            signingCredentials: credentials
+            );
+
+        // Return token value
+        return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+
+
     #endregion
 }

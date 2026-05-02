@@ -271,3 +271,4 @@ E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\obj\Debug\net10.0\Hote
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\obj\Debug\net10.0\ref\HotelListingAPI.dll
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\AutoMapper.dll
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

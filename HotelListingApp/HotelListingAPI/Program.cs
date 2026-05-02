@@ -1,13 +1,16 @@
-using Microsoft.EntityFrameworkCore;
-
-using HotelListingAPI.Data;
-using HotelListingAPI.Contracts;
-using HotelListingAPI.Services;
-using HotelListingAPI.MappingProfiles;
-using Microsoft.AspNetCore.Identity;
 using HotelListingAPI.Constants;
-using Microsoft.AspNetCore.Authentication;
+using HotelListingAPI.Contracts;
+using HotelListingAPI.Data;
 using HotelListingAPI.Handlers;
+using HotelListingAPI.MappingProfiles;
+using HotelListingAPI.Services;
+
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,8 +20,6 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("MSSQLConnection");
 builder.Services.AddDbContext<HotelListingsDbContext>(options =>
 options.UseSqlServer(connectionString));
-
-
 
 // Identity service
 #region Identity - injecting AddIdentityCore<>
@@ -43,18 +44,53 @@ builder.Services.AddIdentityApiEndpoints<ApplicationUser>(options =>
     options.Password.RequiredUniqueChars = 1;
 }
 )
+    // identity Roles
+    .AddRoles<IdentityRole>()
+
     // Identity Database store location
     .AddEntityFrameworkStores<HotelListingsDbContext>();
 
-// Basic Authentication 
+// Authentication 
 builder.Services.AddAuthentication(options =>
 {
     // Add scheme
-    options.DefaultAuthenticateScheme = AuthenticationDefaults.BasicScheme;
-    options.DefaultChallengeScheme = AuthenticationDefaults.BasicScheme;
+
+    // JWT 
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+
+    // Basic Auth
+    //options.DefaultAuthenticateScheme = AuthenticationDefaults.BasicScheme; 
+    //options.DefaultChallengeScheme = AuthenticationDefaults.BasicScheme;
 })
     // Handle scheme
-    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>(AuthenticationDefaults.BasicScheme, _ => { });
+
+    // JWT 
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            // Validate:
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+
+            // Validate against:
+            ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+            ValidAudience = builder.Configuration["JwtSettings:Audience"],
+            // Encode signing key using SymetricSecurityKey
+            IssuerSigningKey = new SymmetricSecurityKey(key: Encoding.UTF8
+            .GetBytes(builder.Configuration["JwtSettings:Key"])),
+            // Token expiry extra time - Zero for no extra time
+            ClockSkew = TimeSpan.Zero
+        };
+    })
+
+    // Basic auth and API Key
+    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>(AuthenticationDefaults.BasicScheme, _ => { })
+    .AddScheme<AuthenticationSchemeOptions, ApiKeyAuthenticationHandler>(AuthenticationDefaults.ApiKeyScheme, _ => { });
 
 // Register AddAuthorization service
 builder.Services.AddAuthorization();
@@ -63,6 +99,8 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<ICountriesServices, CountriesService>();
 builder.Services.AddScoped<IHotelsServices, HotelsServices>();
 builder.Services.AddScoped<IUsersServices, UsersServices>();
+builder.Services.AddScoped<IApiKeyValidatorService, ApiKeyValidatorService>();
+
 // AutoMapper service
 builder.Services.AddAutoMapper(cfg =>
 {
@@ -99,5 +137,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
 
 

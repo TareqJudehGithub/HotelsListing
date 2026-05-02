@@ -1,4 +1,5 @@
-﻿using HotelListingAPI.DTOs.Auth;
+﻿using HotelListingAPI.Data;
+using HotelListingAPI.DTOs.Auth;
 using HotelListingAPI.Results;
 
 namespace HotelListingAPI.Contracts;
@@ -9,4 +10,6 @@ public interface IUsersServices
     Task<Result<string>> LoginAsync(LoginUserDto loginUserDto);
     Task<Result<string>> DeleteAsync(DeleteUserDto deleteUserDto);
     Task<Result<string>> LogoutAsync();
+    // Task<string> GenerateToken(ApplicationUser user);
+
 }
