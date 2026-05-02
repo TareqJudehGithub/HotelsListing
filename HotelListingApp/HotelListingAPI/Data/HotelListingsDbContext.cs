@@ -30,7 +30,8 @@ namespace HotelListingAPI.Data
                 b.HasIndex(k => k.Key).IsUnique();
             });
 
-            // builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            // Apply configuration from the assembly
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
         #endregion
     }

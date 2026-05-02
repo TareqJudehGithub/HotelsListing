@@ -23,4 +23,7 @@ public class RegisterUserDto
     [Required]
     [MaxLength(length: 12, ErrorMessage = "{0} max length is {1} characters.")]
     public string LastName { get; set; } = string.Empty;
+
+    // Default Role value upon registration (In case no value were provided)
+    public string Role { get; set; } = "User";
 }

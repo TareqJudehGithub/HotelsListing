@@ -56,13 +56,18 @@ public class UsersServices : IUsersServices
 
             return Result<RegisteredUserDto>.BadRequest(errors: errors);
         }
+
+        // Assign a role to new user
+        await _userManager.AddToRoleAsync(user: user, role: registerUserDto.Role);
+
         // map
         var registeredUser = new RegisteredUserDto()
         {
             Id = user.Id,
             Email = user.Email,
             FirstName = user.FirstName,
-            LastName = user.LastName
+            LastName = user.LastName,
+            Role = registerUserDto.Role
         };
 
         // return result
