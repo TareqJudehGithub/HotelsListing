@@ -1,28 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{4B28D726-B3AC-A51E-B08D-91539E7B6DD4}|HotelListingAPI\\HotelListingAPI.csproj|e:\\webdev\\trevor\\hotelmng\\hotellistingapp\\hotellistingapi\\services\\usersservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4B28D726-B3AC-A51E-B08D-91539E7B6DD4}|HotelListingAPI\\HotelListingAPI.csproj|solutionrelative:hotellistingapi\\services\\usersservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4B28D726-B3AC-A51E-B08D-91539E7B6DD4}|HotelListingAPI\\HotelListingAPI.csproj|e:\\webdev\\trevor\\hotelmng\\hotellistingapp\\hotellistingapi\\dtos\\auth\\registereduserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4B28D726-B3AC-A51E-B08D-91539E7B6DD4}|HotelListingAPI\\HotelListingAPI.csproj|solutionrelative:hotellistingapi\\dtos\\auth\\registereduserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4B28D726-B3AC-A51E-B08D-91539E7B6DD4}|HotelListingAPI\\HotelListingAPI.csproj|e:\\webdev\\trevor\\hotelmng\\hotellistingapp\\hotellistingapi\\data\\hotellistingsdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4B28D726-B3AC-A51E-B08D-91539E7B6DD4}|HotelListingAPI\\HotelListingAPI.csproj|solutionrelative:hotellistingapi\\data\\hotellistingsdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4B28D726-B3AC-A51E-B08D-91539E7B6DD4}|HotelListingAPI\\HotelListingAPI.csproj|e:\\webdev\\trevor\\hotelmng\\hotellistingapp\\hotellistingapi\\data\\configurations\\roleconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4B28D726-B3AC-A51E-B08D-91539E7B6DD4}|HotelListingAPI\\HotelListingAPI.csproj|solutionrelative:hotellistingapi\\data\\configurations\\roleconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\Migrations\\20260502175027_Added default-Roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:HotelListingAPI\\Migrations\\20260502175027_Added default-Roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -30,34 +9,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "RegisteredUserDto.cs",
-              "DocumentMoniker": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\DTOs\\Auth\\RegisteredUserDto.cs",
-              "RelativeDocumentMoniker": "HotelListingAPI\\DTOs\\Auth\\RegisteredUserDto.cs",
-              "ToolTip": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\DTOs\\Auth\\RegisteredUserDto.cs",
-              "RelativeToolTip": "HotelListingAPI\\DTOs\\Auth\\RegisteredUserDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwoAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T18:00:04.69Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UsersServices.cs",
-              "DocumentMoniker": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\Services\\UsersServices.cs",
-              "RelativeDocumentMoniker": "HotelListingAPI\\Services\\UsersServices.cs",
-              "ToolTip": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\Services\\UsersServices.cs",
-              "RelativeToolTip": "HotelListingAPI\\Services\\UsersServices.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAAADMAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T17:56:38.944Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
@@ -69,45 +22,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "20260502175027_Added default-Roles.cs",
-              "DocumentMoniker": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\Migrations\\20260502175027_Added default-Roles.cs",
-              "RelativeDocumentMoniker": "HotelListingAPI\\Migrations\\20260502175027_Added default-Roles.cs",
-              "ToolTip": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\Migrations\\20260502175027_Added default-Roles.cs",
-              "RelativeToolTip": "HotelListingAPI\\Migrations\\20260502175027_Added default-Roles.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T17:50:27.463Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "RoleConfiguration.cs",
-              "DocumentMoniker": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\Data\\Configurations\\RoleConfiguration.cs",
-              "RelativeDocumentMoniker": "HotelListingAPI\\Data\\Configurations\\RoleConfiguration.cs",
-              "ToolTip": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\Data\\Configurations\\RoleConfiguration.cs",
-              "RelativeToolTip": "HotelListingAPI\\Data\\Configurations\\RoleConfiguration.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAYwB0AAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T17:24:18.403Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "HotelListingsDbContext.cs",
-              "DocumentMoniker": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\Data\\HotelListingsDbContext.cs",
-              "RelativeDocumentMoniker": "HotelListingAPI\\Data\\HotelListingsDbContext.cs",
-              "ToolTip": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\Data\\HotelListingsDbContext.cs",
-              "RelativeToolTip": "HotelListingAPI\\Data\\HotelListingsDbContext.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAowCYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T17:04:43.493Z",
-              "EditorCaption": ""
             }
           ]
         }

@@ -6,6 +6,7 @@ namespace HotelListingAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class CountriesController : BaseApiController
 {
     private readonly ICountriesServices _countriesServices;
@@ -16,7 +17,6 @@ public class CountriesController : BaseApiController
 
     // GET: api/Countries
     [HttpGet]
-    [Authorize]
     public async Task<ActionResult<IEnumerable<GetCountriesDto>>> GetCountries()
     {
         var result = await _countriesServices.GetCountriesAsync();
@@ -36,6 +36,7 @@ public class CountriesController : BaseApiController
     // POST: api/Countries
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<Country>> PostCountry([FromBody] CreateCountryDto countryDto)
     {
         var result = await _countriesServices.CreateCountryAsync(countryDto);
@@ -53,6 +54,7 @@ public class CountriesController : BaseApiController
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut]
     [Route("{id:int}")]
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> PutCountry([FromRoute] int id, [FromBody] UpdateCountryDto countryDto)
     {
 
@@ -64,6 +66,7 @@ public class CountriesController : BaseApiController
     // DELETE: api/Countries/5
     [HttpDelete]
     [Route("{id:int}")]
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> DeleteCountry([FromRoute] int id)
     {
         var result = await _countriesServices.DeleteCountryAsync(id);
