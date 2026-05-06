@@ -50,6 +50,9 @@ builder.Services.AddIdentityApiEndpoints<ApplicationUser>(options =>
     // Identity Database store location
     .AddEntityFrameworkStores<HotelListingsDbContext>();
 
+// HttpContextAccessor
+builder.Services.AddHttpContextAccessor();
+
 // Authentication 
 builder.Services.AddAuthentication(options =>
 {
@@ -100,6 +103,7 @@ builder.Services.AddScoped<ICountriesServices, CountriesService>();
 builder.Services.AddScoped<IHotelsServices, HotelsServices>();
 builder.Services.AddScoped<IUsersServices, UsersServices>();
 builder.Services.AddScoped<IApiKeyValidatorService, ApiKeyValidatorService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
 
 // AutoMapper service
 builder.Services.AddAutoMapper(cfg =>

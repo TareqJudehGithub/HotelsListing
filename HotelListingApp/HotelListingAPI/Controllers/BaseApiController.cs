@@ -3,29 +3,28 @@
 using HotelListingAPI.Results;
 using HotelListingAPI.Constants;
 
-namespace HotelListingAPI.Controllers
+namespace HotelListingAPI.Controllers;
+
+public abstract class BaseApiController : ControllerBase
 {
-    public abstract class BaseApiController : ControllerBase
+    // Action result methods
+    protected ActionResult<T> ToActionResult<T>(Result<T> result)
+        => result.IsSuccess ? Ok(result.Value) : MapErrorsToResponse(result.Errors);
+    protected ActionResult ToActionResult(Result result)
+        => result.IsSuccess ? NoContent() : MapErrorsToResponse(result.Errors);
+
+    protected ActionResult MapErrorsToResponse(Error[] errors)
     {
-        // Action result methods
-        protected ActionResult<T> ToActionResult<T>(Result<T> result)
-            => result.IsSuccess ? Ok(result.Value) : MapErrorsToResponse(result.Errors);
-        protected ActionResult ToActionResult(Result result)
-            => result.IsSuccess ? NoContent() : MapErrorsToResponse(result.Errors);
+        if (errors is null || errors.Length == 0) return Problem();
+        var e = errors[0];
 
-        protected ActionResult MapErrorsToResponse(Error[] errors)
+        return e.Code switch
         {
-            if (errors is null || errors.Length == 0) return Problem();
-            var e = errors[0];
-
-            return e.Code switch
-            {
-                ErrorCodes.NotFound => NotFound(e.Description),
-                ErrorCodes.Validation => BadRequest(e.Description),
-                ErrorCodes.BadRequest => BadRequest(e.Description),
-                ErrorCodes.Conflict => Conflict(e.Description),
-                _ => Problem(detail: string.Join("; ", errors.Select(x => x.Description)), title: e.Code)
-            };
-        }
+            ErrorCodes.NotFound => NotFound(e.Description),
+            ErrorCodes.Validation => BadRequest(e.Description),
+            ErrorCodes.BadRequest => BadRequest(e.Description),
+            ErrorCodes.Conflict => Conflict(e.Description),
+            _ => Problem(detail: string.Join("; ", errors.Select(x => x.Description)), title: e.Code)
+        };
     }
 }

@@ -16,8 +16,11 @@ namespace HotelListingAPI.Data
         #region DbSets
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<HotelAdmin> HotelAdmins { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
 
         public DbSet<ApiKey> ApiKeys { get; set; }
+        #endregion
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -33,6 +36,5 @@ namespace HotelListingAPI.Data
             // Apply configuration from the assembly
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
-        #endregion
     }
 }

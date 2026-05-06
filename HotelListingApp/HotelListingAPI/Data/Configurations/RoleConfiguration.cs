@@ -11,6 +11,7 @@ public class RoleConfiguration : IEntityTypeConfiguration<IdentityRole>
         // Role Ids
         var adminRoleId = "DD0491E3-A9BD-402F-A364-D1EFDAB4DF6A";
         var userRoleId = "B0755520-E5ED-42D4-97D4-AE078CB8D35A";
+        var hotelAdminId = "591d71d8-cbd8-4336-befb-17b9012eb9c7";
 
         builder.HasData(
             // Admin
@@ -29,6 +30,13 @@ public class RoleConfiguration : IEntityTypeConfiguration<IdentityRole>
                 Name = "User",
                 NormalizedName = "USER",
                 ConcurrencyStamp = userRoleId
+            },
+            new IdentityRole
+            {
+                Id = hotelAdminId,
+                Name = "hotel Admin",
+                NormalizedName = "HOTEL ADMIN",
+                ConcurrencyStamp = hotelAdminId
             }
             );
     }

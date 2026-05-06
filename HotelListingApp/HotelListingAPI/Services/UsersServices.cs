@@ -121,6 +121,7 @@ public class UsersServices : IUsersServices
         return Result<string>.Success($"Username: {user.UserName} was as successfully deleted.");
     }
 
+    // JWT
     private async Task<string> GenerateToken(ApplicationUser user)
     {
         // Set basic user claims

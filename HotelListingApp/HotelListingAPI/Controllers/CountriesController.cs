@@ -1,8 +1,9 @@
-﻿using HotelListingAPI.Data;
-using HotelListingAPI.DTOs.Country;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 namespace HotelListingAPI.Controllers;
+
+using HotelListingAPI.Data;
+using HotelListingAPI.DTOs.Country;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -86,7 +87,6 @@ public class CountriesController : BaseApiController
         // return NoContent();
         #endregion
     }
-
 }
 
 

@@ -4,6 +4,7 @@ using HotelListingAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelListingAPI.Migrations
 {
     [DbContext(typeof(HotelListingsDbContext))]
-    partial class HotelListingsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260505154934_Added Booking Tables")]
+    partial class AddedBookingTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,7 +159,7 @@ namespace HotelListingAPI.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18, 3)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("UpdateAtUtc")
                         .HasColumnType("datetime2");
@@ -167,11 +170,13 @@ namespace HotelListingAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CheckIn");
+
+                    b.HasIndex("CheckOut");
+
                     b.HasIndex("HotelId");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("CheckIn", "CheckOut");
 
                     b.ToTable("Bookings");
                 });
@@ -217,7 +222,7 @@ namespace HotelListingAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PerNightRate")
-                        .HasColumnType("decimal(18, 3)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<double>("Rating")
                         .HasColumnType("float");

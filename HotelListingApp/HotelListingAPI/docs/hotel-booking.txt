@@ -1,0 +1,52 @@
+Hotel Booking Requirements
+
+	- A user should be able to send a booking request
+		 - A booking must belong to exactly one hotel and exactly one user.
+		 - Users cannot create overlapping bookings for the same hotel.
+	
+	- Booking requests should be for a hotel and have valid Check In and Check Out dates.
+		- Check Out date must be strictly greater than Check In date.
+
+	- New Role required: Hotel Admin
+
+
+	- Soft deletion. Bookings are soft-update, and not hard-deleted (cancellation preferred to maintain history).
+
+		- Status Lifecycle:
+		- Default = Pending or Confirmed upon creation.
+		- Users can cencel their own bookings.
+		- Admins can override status (e.g., Confirmed => Cancelled).
+
+	
+	Tables
+		
+		Country 
+			int			Id							PK
+			string	Name
+			string	Code
+
+		Hotel
+			int			Id							PK
+			string	Name			
+			string	Address
+			int			CountryId				FK
+
+		User
+			string	Id							PK
+			string	Username
+			string	Email			
+
+		HotelAdmin
+			string	UserId					FK
+			int			HotelId					FK
+		
+		Booking
+			int			Id							PK
+			string	UserId					FK
+			int			HotelId					FK
+			date		DateFrom			
+			date		DateTo
+			int			NumberOfGuests
+
+
+
