@@ -310,7 +310,96 @@ public class BookingService : IBookingService
 
         return Result.Success();
     }
+    public async Task<Result> AdminCancelHotelBookingAsync(int hotelId, int bookingId)
+    {
+        // Get userId 
+        var userId = _contextAccessor
+            .HttpContext?
+            .User?
+            .FindFirst(type: JwtRegisteredClaimNames.Sub)?
+            .Value;
 
+        // Check if user is HotelAdmin user
+        var isHotelAdminUser = await _context.HotelAdmins
+            .AnyAsync(q => q.UserId == userId && q.HotelId == hotelId);
+
+        if (!isHotelAdminUser)
+        {
+            return Result
+                .Failure(new Error(Code: ErrorCodes.Forbid, Description: $"You're not the Admin of the selected hotel."));
+        }
+
+        // Get booking
+        var booking = await _context.Bookings
+            .Include(q => q.Hotel)
+            .FirstOrDefaultAsync(q =>
+            q.Id == bookingId
+            && q.HotelId == hotelId
+            );
+
+        if (booking is null)
+        {
+            return Result
+                .Failure(new Error(Code: ErrorCodes.NotFound, Description: $"Booking {bookingId} was not found. "));
+        }
+        if (booking.Status == BookingStatusEnum.Cancelled)
+        {
+            return Result.Failure(new Error(Code: ErrorCodes.Conflict, Description: "Cancelled bookings cannot be modified."));
+        }
+
+        // Cancel booking and save
+        booking.Status = BookingStatusEnum.Cancelled;
+        booking.UpdateAtUtc = DateTime.UtcNow;
+        await _context.SaveChangesAsync();
+
+        return Result.Success();
+    }
+    public async Task<Result> AdminConfirmHotelBookingAsync(int hotelId, int bookingId)
+    {
+        // Get user
+        var userId = _contextAccessor
+            .HttpContext?
+            .User?
+            .FindFirst(type: JwtRegisteredClaimNames.Sub)?
+            .Value;
+
+        // Check if user is HotelAdmin user
+        var isHotelAdminUser = await _context.HotelAdmins
+            .AnyAsync(q =>
+            q.UserId == userId
+            && q.HotelId == hotelId
+            );
+
+        if (!isHotelAdminUser)
+        {
+            return Result
+                .Failure(new Error(Code: ErrorCodes.Forbid, Description: $"You're not the Admin of the selected hotel."));
+        }
+
+        var booking = await _context.Bookings
+           .Include(q => q.Hotel)
+           .FirstOrDefaultAsync(q =>
+           q.Id == bookingId
+           && q.HotelId == hotelId
+         );
+
+        if (booking is null)
+        {
+            return Result
+                .Failure(new Error(Code: ErrorCodes.NotFound, Description: $"Booking {bookingId} was not found. "));
+        }
+        if (booking.Status == BookingStatusEnum.Cancelled)
+        {
+            return Result.Failure(new Error(Code: ErrorCodes.Conflict, Description: "Cancelled bookings cannot be modified."));
+        }
+
+        // Confirm booking and save
+        booking.Status = BookingStatusEnum.Confirmed;
+        booking.UpdateAtUtc = DateTime.UtcNow;
+        await _context.SaveChangesAsync();
+
+        return Result.Success();
+    }
     #endregion
 }
 

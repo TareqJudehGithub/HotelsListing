@@ -12,6 +12,8 @@ namespace HotelListingAPI.Contracts
             int bookingId,
             UpdateBookingDto updateBookingDto);
         Task<Result> CancelHotelBookingAsync(int hotelId, int bookingId);
+        Task<Result> AdminCancelHotelBookingAsync(int hotelId, int bookingId);
+        Task<Result> AdminConfirmHotelBookingAsync(int hotelId, int bookingId);
     }
 }
 
