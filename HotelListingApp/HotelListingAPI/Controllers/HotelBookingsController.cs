@@ -48,5 +48,28 @@ public class HotelBookingsController : BaseApiController
         return ToActionResult(result: result);
     }
 
+    // PUT: "https://localhost/api/hotels/{hotelId}/bookings/bookingId"
+    [HttpPut]
+    [Route("{bookingId: int}")]
+    public async Task<ActionResult<GetBookingDto>> UpdateHotelBooking(
+        [FromRoute] int hotelId,
+        [FromRoute] int bookingId,
+        [FromBody] UpdateBookingDto updateBookingDto)
+    {
+        var result = await _bookingService.UpdateHotelBookingAsync(
+            hotelId, bookingId, updateBookingDto);
+
+        return ToActionResult(result: result);
+    }
+
+    // PUT: "https://localhost/api/hotels/{hotelId}/bookings/bookingId/cancel"
+    [HttpPut]
+    [Route("{bookingId:int}/cancel")]
+    public async Task<IActionResult> CancelHotelBooking([FromRoute] int hotelId, [FromRoute] int bookingId)
+    {
+        var result = await _bookingService.CancelHotelBookingAsync(hotelId, bookingId);
+        return ToActionResult(result: result);
+    }
+
     #endregion
 }

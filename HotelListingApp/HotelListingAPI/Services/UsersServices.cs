@@ -23,12 +23,12 @@ public class UsersServices : IUsersServices
     public UsersServices(
         UserManager<ApplicationUser> userManager,
           SignInManager<ApplicationUser> signInManager,
-        IConfiguration iconfiguration
+        IConfiguration config
         )
     {
         _userManager = userManager;
         _signInManager = signInManager;
-        _config = iconfiguration;
+        _config = config;
     }
     #endregion
 
