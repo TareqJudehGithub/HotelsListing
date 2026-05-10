@@ -1,14 +1,29 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace HotelListingAPI.DTOs.Booking
+namespace HotelListingAPI.DTOs.Booking;
+
+public class CreateBookingDto : IValidatableObject
 {
-    public class CreateBookingDto
+    #region Properties    
+    [Required]
+    public required int HotelId { get; set; }
+
+    [Required]
+    [Range(minimum: 1, maximum: 10, ErrorMessage = "Number of guests should be between {1} and {2}")]
+    public int Guests { get; set; }
+    public DateOnly CheckIn { get; set; }
+    public DateOnly CheckOut { get; set; }
+    #endregion
+
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        #region Properties    
-        public required int HotelId { get; set; }
-        public int Guests { get; set; }
-        public DateOnly CheckIn { get; set; }
-        public DateOnly CheckOut { get; set; }
-        #endregion
+        if (CheckOut <= CheckIn)
+        {
+            yield return new ValidationResult(
+                errorMessage: "Check-out date must be greater than Check-In date.",
+                memberNames: [nameof(CheckOut), nameof(CheckIn)]);
+        }
     }
 }
+
+

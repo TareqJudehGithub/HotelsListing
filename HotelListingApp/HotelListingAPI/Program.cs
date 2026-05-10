@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -56,12 +57,10 @@ builder.Services.AddHttpContextAccessor();
 // Authentication 
 builder.Services.AddAuthentication(options =>
 {
-    // Add scheme
-
-    // JWT 
+    // Add scheme and set it as default - JWT 
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 
     // Basic Auth
     //options.DefaultAuthenticateScheme = AuthenticationDefaults.BasicScheme; 
@@ -91,6 +90,8 @@ builder.Services.AddAuthentication(options =>
         };
     })
 
+    // JWT
+
     // Basic auth and API Key
     .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>(AuthenticationDefaults.BasicScheme, _ => { })
     .AddScheme<AuthenticationSchemeOptions, ApiKeyAuthenticationHandler>(AuthenticationDefaults.ApiKeyScheme, _ => { });
@@ -105,6 +106,7 @@ builder.Services.AddScoped<IUsersServices, UsersServices>();
 builder.Services.AddScoped<IApiKeyValidatorService, ApiKeyValidatorService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 
+#region AutoMapper
 // AutoMapper service
 builder.Services.AddAutoMapper(cfg =>
 {
@@ -112,8 +114,12 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<HotelMappingProfile>();
     // Country
     cfg.AddProfile<CountryMappingProfile>();
-
+    // Booking
+    cfg.AddProfile<HotelBookingMappingProfile>();
 });
+// Or add all mapping profiles using GetExecutingAssembly method
+//builder.Services.AddAutoMapper(cfg => { }, Assembly.GetExecutingAssembly());
+#endregion
 
 //  Avoid errors from object cycles, and to return Country details in GetHotels endpoint.
 builder.Services.AddControllers()

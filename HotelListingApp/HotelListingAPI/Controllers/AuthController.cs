@@ -10,7 +10,7 @@ namespace HotelListingAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
+    // [AllowAnonymous]
     public class AuthController : BaseApiController
     {
 
@@ -38,6 +38,8 @@ namespace HotelListingAPI.Controllers
 
         // POST:  "api/auth/register"
         [HttpPost("register")]
+        [AllowAnonymous]
+        // Or
         //[HttpPost]
         //[Route("register")]
         public async Task<ActionResult<RegisteredUserDto>> Register([FromBody] RegisterUserDto registerUserDto)
@@ -49,6 +51,7 @@ namespace HotelListingAPI.Controllers
         // GET:  "api/auth/login"
         [HttpGet]
         [Route("login")]
+        [AllowAnonymous]
         public async Task<ActionResult<string>> Login([FromBody] LoginUserDto loginUserDto)
         {
             var result = await _usersServices.LoginAsync(loginUserDto);
@@ -58,6 +61,7 @@ namespace HotelListingAPI.Controllers
         // Delete: "api/auth/delete"
         [HttpDelete]
         [Route("delete")]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult<string>> Delete([FromBody] DeleteUserDto deleteUseDto)
         {
             var result = await _usersServices.DeleteAsync(deleteUseDto);
@@ -67,6 +71,7 @@ namespace HotelListingAPI.Controllers
         // GET: "api/auth/logout"
         [HttpGet]
         [Route("logout")]
+        [AllowAnonymous]
         public async Task<ActionResult<string>> Logout()
         {
             var result = await _usersServices.LogoutAsync();

@@ -1,15 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
-
+﻿using AutoMapper;
+using HotelListingAPI.Constants;
 using HotelListingAPI.Contracts;
 using HotelListingAPI.Data;
 using HotelListingAPI.DTOs.Hotel;
-using HotelListingAPI.Constants;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HotelListingAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class HotelsController : BaseApiController
 {
     private readonly IHotelsServices _hotelsServices;
@@ -71,6 +72,7 @@ public class HotelsController : BaseApiController
     // POST: api/Hotels
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<Hotel>> PostHotel([FromBody] CreateHotelDto createHotelDto)
     {
         var result = await _hotelsServices.CreateHotelAsync(createHotelDto);
@@ -86,6 +88,7 @@ public class HotelsController : BaseApiController
     // PUT: api/Hotels/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> PutHotel([FromRoute] int id, [FromBody] UpdateHotelDto hotelDto)
     {
         var result = await _hotelsServices.UpdateHotelAsync(id, hotelDto);
@@ -118,6 +121,7 @@ public class HotelsController : BaseApiController
 
     // DELETE: api/Hotels/5
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> DeleteHotel([FromRoute] int id)
     {
         var result = await _hotelsServices.DeleteHotelAsync(id);

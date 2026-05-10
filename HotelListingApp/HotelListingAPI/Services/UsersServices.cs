@@ -17,18 +17,23 @@ public class UsersServices : IUsersServices
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly IConfiguration _config;
+    private readonly IHttpContextAccessor _contextAccessor;
+
+    //  string IUsersServices.UserId => throw new NotImplementedException();
     #endregion
 
     #region Constructors
     public UsersServices(
         UserManager<ApplicationUser> userManager,
           SignInManager<ApplicationUser> signInManager,
-        IConfiguration config
+        IConfiguration config,
+        IHttpContextAccessor httpContextAccessor
         )
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _config = config;
+        _contextAccessor = httpContextAccessor;
     }
     #endregion
 
@@ -157,6 +162,29 @@ public class UsersServices : IUsersServices
 
         // Return token value
         return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+
+    // IHttpContextAccessor
+    public string UserId()
+    {
+        // Get userId
+        // Get userId from JWT claims - Find the 1st name with this sub
+        var userId = _contextAccessor?
+            .HttpContext?
+            .User?
+            .FindFirst(type: JwtRegisteredClaimNames.Sub)?
+            .Value
+            ??
+            _contextAccessor?
+             .HttpContext?
+            .User?
+            .FindFirst(type: ClaimTypes.NameIdentifier)?
+            .Value
+            ??
+            string.Empty;
+
+        // Return the userId if found, if not then return an empty string instead.
+        return userId ?? string.Empty;
     }
 
 

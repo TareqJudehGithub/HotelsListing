@@ -15,7 +15,6 @@ namespace HotelListingAPI.Services
         #region Fields
         private readonly HotelListingsDbContext _dbContext;
         private readonly IMapper _mapper;
-        private readonly ICountriesServices _countriesServices;
         #endregion
         #region Constructor
         public HotelsServices(
@@ -26,7 +25,7 @@ namespace HotelListingAPI.Services
         {
             _dbContext = dbContext;
             _mapper = mapper;
-            _countriesServices = countriesServices;
+
         }
         #endregion
         #region Methods (Implementations)

@@ -37,7 +37,6 @@ public class CountriesController : BaseApiController
     // POST: api/Countries
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost]
-    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<Country>> PostCountry([FromBody] CreateCountryDto countryDto)
     {
         var result = await _countriesServices.CreateCountryAsync(countryDto);
