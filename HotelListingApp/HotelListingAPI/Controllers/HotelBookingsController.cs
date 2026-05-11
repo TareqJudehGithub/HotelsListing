@@ -6,7 +6,6 @@ using HotelListingAPI.AuthorizationFilters;
 using HotelListingAPI.Contracts;
 using HotelListingAPI.DTOs.Booking;
 
-
 namespace HotelListingAPI.Controllers;
 
 // "https://localhost/api/hotels/{hotelId}/bookings"
@@ -29,7 +28,7 @@ public class HotelBookingsController : BaseApiController
     #region Methods
     // GET: "https://localhost/api/hotels/{hotelId}/bookings"
     [HttpGet]
-    [Route("{id: int}")]
+    // [Route("{id:int}")]
     public async Task<ActionResult<IEnumerable<GetBookingDto>>> UserGetHotelBookings(
         [FromRoute] int hotelId
         )
@@ -50,7 +49,8 @@ public class HotelBookingsController : BaseApiController
 
     // PUT: "https://localhost/api/hotels/{hotelId}/bookings/bookingId"
     [HttpPut]
-    [Route("{bookingId: int}")]
+    [Route("{bookingId:int}")]
+    //[Route("{bookingId:int}")]
     public async Task<ActionResult<GetBookingDto>> UpdateHotelBooking(
         [FromRoute] int hotelId,
         [FromRoute] int bookingId,
@@ -74,7 +74,7 @@ public class HotelBookingsController : BaseApiController
     #region HotelAdmin Endpoints   
     // GET: "https://localhost/api/hotels/{hotelId}/bookings/admin"
     [HttpGet]
-    [Route("/admin")]
+    [Route("admin")]
     // Test:    [Route("{id: int}/admin")]
     [HotelOrSystemAdmin]
     //[Authorize(Roles = "Hotel Admin, Administrator")]
@@ -88,7 +88,7 @@ public class HotelBookingsController : BaseApiController
 
     // PUT: "https://localhost/api/hotels{hotelId}/bookings/{bookingId}/admin/cancel"
     [HttpPut]
-    [Route("{bookingId: int}/admin/cancel")]
+    [Route("{bookingId:int}/admin/cancel")]
     [HotelOrSystemAdmin]
     //[Authorize(Roles = "Hotel Admin, Administrator")]
     public async Task<IActionResult> AdminCancelHotelBooking([FromRoute] int hotelId, [FromRoute] int bookingId)
@@ -99,7 +99,7 @@ public class HotelBookingsController : BaseApiController
 
     // PUT: "https://localhost/api/hotels{hotelId}/bookings/{bookingId}/admin/confirm"
     [HttpPut]
-    [Route("{bookingId: int}/admin/confirm")]
+    [Route("{bookingId:int}/admin/confirm")]
     [HotelOrSystemAdmin]
     //[Authorize(Roles = "Hotel Admin, Administrator")]
     public async Task<IActionResult> AdminConfirmHotelBooking([FromRoute] int hotelId, [FromRoute] int bookingId)

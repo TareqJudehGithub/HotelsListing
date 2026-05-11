@@ -36,14 +36,14 @@ public class BookingService : IBookingService
     public async Task<Result<IEnumerable<GetBookingDto>>> UserGetHotelBookingsAsync(int hotelId)
     {
         // Get userId
-        var userId = _usersServices.UserId();
+        var userId = _usersServices.UserId;
 
         // Check if userId is not null
-        if (string.IsNullOrWhiteSpace(userId))
-        {
-            return Result<IEnumerable<GetBookingDto>>
-               .Failure(new Error(Code: ErrorCodes.Validation, Description: "User is required"));
-        }
+        //if (string.IsNullOrWhiteSpace(userId))
+        //{
+        //    return Result<IEnumerable<GetBookingDto>>
+        //       .Failure(new Error(Code: ErrorCodes.Validation, Description: "User is required"));
+        //}
 
         // Check for existing hotel
         var hotel = await _context.Hotels.FirstOrDefaultAsync(q => q.Id == hotelId);
@@ -85,7 +85,7 @@ public class BookingService : IBookingService
     public async Task<Result<GetBookingDto>> CreateHotelBookingAsync(CreateBookingDto createBookingDto)
     {
         // Get userId
-        var userId = _usersServices.UserId();
+        var userId = _usersServices.UserId;
 
         // Check if userId is not null
         if (string.IsNullOrWhiteSpace(userId))
@@ -135,6 +135,8 @@ public class BookingService : IBookingService
         #endregion
         var booking = _mapper.Map<Booking>(source: createBookingDto);
         booking.UserId = userId;
+        booking.CreateAtUtc = DateTime.UtcNow;
+        //booking.UpdateAtUtc = "";
 
         // Add the new booking to DB and save
         await _context.Bookings.AddAsync(booking);
@@ -166,7 +168,7 @@ public class BookingService : IBookingService
         UpdateBookingDto updateBookingDto)
     {
         // Get userId
-        var userId = _usersServices.UserId();
+        var userId = _usersServices.UserId;
 
         // Check if userId is not null
         if (string.IsNullOrWhiteSpace(userId))
@@ -177,7 +179,7 @@ public class BookingService : IBookingService
         #region Validations
         // Check for overlaps booking from the same user
         // Overlaps means that the new booking's check-in date is before an existing booking's check-out date
-        var overlaps = await IsOverLap(hotelId, userId, updateBookingDto.CheckIn, updateBookingDto.CheckOut);
+        var overlaps = await IsOverLap(hotelId, userId, updateBookingDto.CheckIn, updateBookingDto.CheckOut, bookingId);
 
         if (overlaps)
         {
@@ -206,7 +208,6 @@ public class BookingService : IBookingService
             return Result<GetBookingDto>
                 .Failure(new Error(Code: ErrorCodes.Conflict, Description: "Cancelled bookings cannot be modified."));
         }
-
 
         // Update booking record
         _mapper.Map(source: updateBookingDto, destination: booking);
@@ -247,7 +248,7 @@ public class BookingService : IBookingService
     public async Task<Result<IEnumerable<GetBookingDto>>> AdminGetHotelBookingsAsync(int hotelId)
     {
         // Get userId
-        var userId = _usersServices.UserId();
+        var userId = _usersServices.UserId;
 
         // Check if userId is not null
         if (string.IsNullOrWhiteSpace(userId))
@@ -310,7 +311,7 @@ public class BookingService : IBookingService
     public async Task<Result> CancelHotelBookingAsync(int hotelId, int bookingId)
     {
         // Get userId 
-        var userId = _usersServices.UserId();
+        var userId = _usersServices.UserId;
 
         // Check if userId exists
         if (string.IsNullOrWhiteSpace(userId))
@@ -352,7 +353,7 @@ public class BookingService : IBookingService
     public async Task<Result> AdminCancelHotelBookingAsync(int hotelId, int bookingId)
     {
         // Get userId 
-        var userId = _usersServices.UserId();
+        var userId = _usersServices.UserId;
 
         // Check if user is HotelAdmin user
         var isHotelAdminUser = await _context.HotelAdmins
@@ -392,7 +393,7 @@ public class BookingService : IBookingService
     public async Task<Result> AdminConfirmHotelBookingAsync(int hotelId, int bookingId)
     {
         // Get userId
-        var userId = _usersServices.UserId();
+        var userId = _usersServices.UserId;
 
         // Check if user is HotelAdmin user
         var isHotelAdminUser = await _context.HotelAdmins
@@ -434,15 +435,31 @@ public class BookingService : IBookingService
 
     // Check for overlaps booking from the same user
     // Overlaps means that the new booking's check-in date is before an existing booking's check-out date
-    private async Task<bool> IsOverLap(int hotelId, string userId, DateOnly checkIn, DateOnly checkOut)
+    private async Task<bool> IsOverLap(
+        int hotelId,
+        string userId,
+        DateOnly checkIn,
+        DateOnly checkOut, int? bookingId = null
+        )
     {
-        return await _context.Bookings.AnyAsync(
-             q => q.HotelId == hotelId
+        // Check if the same user attempts to create a booking in a hotel for the same period of time
+        var query = _context.Bookings.
+            Where(q =>
+            q.Id == bookingId
+            && q.HotelId == hotelId
            && q.Status != BookingStatusEnum.Cancelled
            && q.CheckIn < q.CheckOut
            && q.CheckOut > q.CheckIn
            && q.UserId == userId
-            );
+            )
+            .AsQueryable();
+
+        // Ignore overlap check for updating a booking
+        if (bookingId.HasValue)
+        {
+            query = query.Where(q => q.Id != bookingId.Value);
+        }
+        return await query.AnyAsync();
     }
     #endregion
 }

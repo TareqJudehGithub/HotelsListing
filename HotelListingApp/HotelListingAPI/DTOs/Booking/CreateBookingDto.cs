@@ -13,6 +13,7 @@ public class CreateBookingDto : IValidatableObject
     public int Guests { get; set; }
     public DateOnly CheckIn { get; set; }
     public DateOnly CheckOut { get; set; }
+    public DateTime CreateAtUtc { get; set; } = DateTime.UtcNow;
     #endregion
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

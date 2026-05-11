@@ -555,6 +555,188 @@
     ]
   },
   {
+    "ContainingType": "HotelListingAPI.Controllers.HotelBookingsController",
+    "Method": "UserGetHotelBookings",
+    "RelativePath": "api/hotels/{hotelId}/bookings",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "hotelId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[HotelListingAPI.DTOs.Booking.GetBookingDto, HotelListingAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "HotelListingAPI.Controllers.HotelBookingsController",
+    "Method": "CreateHotelBooking",
+    "RelativePath": "api/hotels/{hotelId}/bookings",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "createBookingDto",
+        "Type": "HotelListingAPI.DTOs.Booking.CreateBookingDto",
+        "IsRequired": true
+      },
+      {
+        "Name": "hotelId",
+        "Type": "",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "HotelListingAPI.DTOs.Booking.GetBookingDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "HotelListingAPI.Controllers.HotelBookingsController",
+    "Method": "UpdateHotelBooking",
+    "RelativePath": "api/hotels/{hotelId}/bookings/{bookingId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "hotelId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "bookingId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updateBookingDto",
+        "Type": "HotelListingAPI.DTOs.Booking.UpdateBookingDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "HotelListingAPI.DTOs.Booking.GetBookingDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "HotelListingAPI.Controllers.HotelBookingsController",
+    "Method": "AdminCancelHotelBooking",
+    "RelativePath": "api/hotels/{hotelId}/bookings/{bookingId}/admin/cancel",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "hotelId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "bookingId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HotelListingAPI.Controllers.HotelBookingsController",
+    "Method": "AdminConfirmHotelBooking",
+    "RelativePath": "api/hotels/{hotelId}/bookings/{bookingId}/admin/confirm",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "hotelId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "bookingId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HotelListingAPI.Controllers.HotelBookingsController",
+    "Method": "CancelHotelBooking",
+    "RelativePath": "api/hotels/{hotelId}/bookings/{bookingId}/cancel",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "hotelId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "bookingId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HotelListingAPI.Controllers.HotelBookingsController",
+    "Method": "AdminGetHotelBookingsAdmin",
+    "RelativePath": "api/hotels/{hotelId}/bookings/admin",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "hotelId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[HotelListingAPI.DTOs.Booking.GetBookingDto, HotelListingAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "HotelListingAPI.Controllers.HotelsController",
     "Method": "GetHotel",
     "RelativePath": "api/Hotels/{id}",

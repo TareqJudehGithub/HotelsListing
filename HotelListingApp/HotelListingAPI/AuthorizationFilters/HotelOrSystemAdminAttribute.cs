@@ -34,9 +34,10 @@ public class HotelOrSystemAdminFilter : IAsyncAuthorizationFilter
         if (httpUser?.Identity?.IsAuthenticated == false)
         {
             context.Result = new UnauthorizedResult();
+            return;
         }
 
-        // Check if user is global admin 'Administrator' - then return
+        // Check if user is global admin 'Administrator' - then allow
         if (httpUser!.IsInRole("Administrator"))
         {
             return;
@@ -54,6 +55,7 @@ public class HotelOrSystemAdminFilter : IAsyncAuthorizationFilter
         if (string.IsNullOrWhiteSpace(userId))
         {
             context.Result = new ForbidResult();
+            return;
         }
 
         // Try and get hotelId from route values, and output the result to hotelIdObj

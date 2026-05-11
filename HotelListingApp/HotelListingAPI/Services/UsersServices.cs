@@ -18,6 +18,7 @@ public class UsersServices : IUsersServices
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly IConfiguration _config;
     private readonly IHttpContextAccessor _contextAccessor;
+    private readonly HotelListingsDbContext _dbContext;
 
     //  string IUsersServices.UserId => throw new NotImplementedException();
     #endregion
@@ -27,13 +28,15 @@ public class UsersServices : IUsersServices
         UserManager<ApplicationUser> userManager,
           SignInManager<ApplicationUser> signInManager,
         IConfiguration config,
-        IHttpContextAccessor httpContextAccessor
+        IHttpContextAccessor httpContextAccessor,
+        HotelListingsDbContext dbContext
         )
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _config = config;
         _contextAccessor = httpContextAccessor;
+        _dbContext = dbContext;
     }
     #endregion
 
@@ -64,6 +67,20 @@ public class UsersServices : IUsersServices
 
         // Assign a role to new user
         await _userManager.AddToRoleAsync(user: user, role: registerUserDto.Role);
+
+
+        // If user is a Hotel Admin, add to HotelAdmins table
+        if (registerUserDto.Role.Equals("Hotel Admin", StringComparison.OrdinalIgnoreCase))
+        {
+            var hotelAdmin = _dbContext.HotelAdmins.Add(
+                new HotelAdmin
+                {
+                    UserId = user.Id,
+                    HotelId = registerUserDto.AssociatedHotelId.GetValueOrDefault()
+                });
+            await _dbContext.SaveChangesAsync();
+        }
+
 
         // map
         var registeredUser = new RegisteredUserDto()
@@ -165,28 +182,35 @@ public class UsersServices : IUsersServices
     }
 
     // IHttpContextAccessor
-    public string UserId()
-    {
-        // Get userId
-        // Get userId from JWT claims - Find the 1st name with this sub
-        var userId = _contextAccessor?
+    public string UserId => _contextAccessor?
             .HttpContext?
             .User?
-            .FindFirst(type: JwtRegisteredClaimNames.Sub)?
-            .Value
-            ??
-            _contextAccessor?
-             .HttpContext?
+            .FindFirst(JwtRegisteredClaimNames.Sub)?.Value
+        ?? _contextAccessor?
+            .HttpContext?
             .User?
-            .FindFirst(type: ClaimTypes.NameIdentifier)?
-            .Value
-            ??
-            string.Empty;
+            .FindFirst(ClaimTypes.NameIdentifier)?.Value
+        ?? string.Empty;
+    //public string UserId()
+    //{
+    //    // Get userId
+    //    // Get userId from JWT claims - Find the 1st name with this sub
+    //    var userId = _contextAccessor?
+    //        .HttpContext?
+    //        .User?
+    //        .FindFirst(type: JwtRegisteredClaimNames.Sub)?
+    //        .Value
+    //        ??
+    //        _contextAccessor?
+    //         .HttpContext?
+    //        .User?
+    //        .FindFirst(type: ClaimTypes.NameIdentifier)?
+    //        .Value
+    //        ??
+    //        string.Empty;
 
-        // Return the userId if found, if not then return an empty string instead.
-        return userId ?? string.Empty;
-    }
-
-
+    //    // Return the userId if found, if not then return an empty string instead.
+    //    return userId ?? string.Empty;
+    //}
     #endregion
 }
