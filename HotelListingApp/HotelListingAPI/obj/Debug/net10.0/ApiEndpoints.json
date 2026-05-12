@@ -9,7 +9,7 @@
     "Parameters": [
       {
         "Name": "deleteUseDto",
-        "Type": "HotelListingAPI.DTOs.Auth.DeleteUserDto",
+        "Type": "HotelListingAPI.Application.DTOs.Auth.DeleteUserDto",
         "IsRequired": true
       }
     ],
@@ -35,7 +35,7 @@
     "Parameters": [
       {
         "Name": "loginUserDto",
-        "Type": "HotelListingAPI.DTOs.Auth.LoginUserDto",
+        "Type": "HotelListingAPI.Application.DTOs.Auth.LoginUserDto",
         "IsRequired": true
       }
     ],
@@ -81,13 +81,13 @@
     "Parameters": [
       {
         "Name": "registerUserDto",
-        "Type": "HotelListingAPI.DTOs.Auth.RegisterUserDto",
+        "Type": "HotelListingAPI.Application.DTOs.Auth.RegisterUserDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "HotelListingAPI.DTOs.Auth.RegisteredUserDto",
+        "Type": "HotelListingAPI.Application.DTOs.Auth.RegisteredUserDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -107,7 +107,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[HotelListingAPI.DTOs.Country.GetCountriesDto, HotelListingAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[HotelListingAPI.Application.DTOs.Country.GetCountriesDto, HotelListingAPI.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -127,13 +127,13 @@
     "Parameters": [
       {
         "Name": "countryDto",
-        "Type": "HotelListingAPI.DTOs.Country.CreateCountryDto",
+        "Type": "HotelListingAPI.Application.DTOs.Country.CreateCountryDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "HotelListingAPI.Data.Country",
+        "Type": "HotelListingAPI.Domain.Country",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -159,7 +159,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "HotelListingAPI.DTOs.Country.GetCountryDto",
+        "Type": "HotelListingAPI.Application.DTOs.Country.GetCountryDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -184,7 +184,7 @@
       },
       {
         "Name": "countryDto",
-        "Type": "HotelListingAPI.DTOs.Country.UpdateCountryDto",
+        "Type": "HotelListingAPI.Application.DTOs.Country.UpdateCountryDto",
         "IsRequired": true
       }
     ],
@@ -207,7 +207,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__1\u00601[[HotelListingAPI.Data.ApplicationUser, HotelListingAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__1\u00601[[HotelListingAPI.Domain.ApplicationUser, HotelListingAPI.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
     "Method": "\u003CMapIdentityApi\u003Eb__1_3",
     "RelativePath": "api/defaultauth/confirmEmail",
     "HttpMethod": "GET",
@@ -240,7 +240,7 @@
     "EndpointName": "MapIdentityApi-api/defaultauth/confirmEmail"
   },
   {
-    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__DisplayClass1_0\u00601[[HotelListingAPI.Data.ApplicationUser, HotelListingAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__DisplayClass1_0\u00601[[HotelListingAPI.Domain.ApplicationUser, HotelListingAPI.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
     "Method": "\u003CMapIdentityApi\u003Eb__6",
     "RelativePath": "api/defaultauth/forgotPassword",
     "HttpMethod": "POST",
@@ -269,7 +269,7 @@
     ]
   },
   {
-    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__1\u00601[[HotelListingAPI.Data.ApplicationUser, HotelListingAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__1\u00601[[HotelListingAPI.Domain.ApplicationUser, HotelListingAPI.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
     "Method": "\u003CMapIdentityApi\u003Eb__1_1",
     "RelativePath": "api/defaultauth/login",
     "HttpMethod": "POST",
@@ -303,7 +303,7 @@
     ]
   },
   {
-    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__1\u00601[[HotelListingAPI.Data.ApplicationUser, HotelListingAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__1\u00601[[HotelListingAPI.Domain.ApplicationUser, HotelListingAPI.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
     "Method": "\u003CMapIdentityApi\u003Eb__1_8",
     "RelativePath": "api/defaultauth/manage/2fa",
     "HttpMethod": "POST",
@@ -339,7 +339,7 @@
     ]
   },
   {
-    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__1\u00601[[HotelListingAPI.Data.ApplicationUser, HotelListingAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__1\u00601[[HotelListingAPI.Domain.ApplicationUser, HotelListingAPI.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
     "Method": "\u003CMapIdentityApi\u003Eb__1_9",
     "RelativePath": "api/defaultauth/manage/info",
     "HttpMethod": "GET",
@@ -369,7 +369,7 @@
     ]
   },
   {
-    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__DisplayClass1_0\u00601[[HotelListingAPI.Data.ApplicationUser, HotelListingAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__DisplayClass1_0\u00601[[HotelListingAPI.Domain.ApplicationUser, HotelListingAPI.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
     "Method": "\u003CMapIdentityApi\u003Eb__10",
     "RelativePath": "api/defaultauth/manage/info",
     "HttpMethod": "POST",
@@ -405,7 +405,7 @@
     ]
   },
   {
-    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__DisplayClass1_0\u00601[[HotelListingAPI.Data.ApplicationUser, HotelListingAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__DisplayClass1_0\u00601[[HotelListingAPI.Domain.ApplicationUser, HotelListingAPI.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
     "Method": "\u003CMapIdentityApi\u003Eb__2",
     "RelativePath": "api/defaultauth/refresh",
     "HttpMethod": "POST",
@@ -429,7 +429,7 @@
     ]
   },
   {
-    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__DisplayClass1_0\u00601[[HotelListingAPI.Data.ApplicationUser, HotelListingAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__DisplayClass1_0\u00601[[HotelListingAPI.Domain.ApplicationUser, HotelListingAPI.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
     "Method": "\u003CMapIdentityApi\u003Eb__0",
     "RelativePath": "api/defaultauth/register",
     "HttpMethod": "POST",
@@ -458,7 +458,7 @@
     ]
   },
   {
-    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__DisplayClass1_0\u00601[[HotelListingAPI.Data.ApplicationUser, HotelListingAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__DisplayClass1_0\u00601[[HotelListingAPI.Domain.ApplicationUser, HotelListingAPI.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
     "Method": "\u003CMapIdentityApi\u003Eb__5",
     "RelativePath": "api/defaultauth/resendConfirmationEmail",
     "HttpMethod": "POST",
@@ -480,7 +480,7 @@
     ]
   },
   {
-    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__1\u00601[[HotelListingAPI.Data.ApplicationUser, HotelListingAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__1\u00601[[HotelListingAPI.Domain.ApplicationUser, HotelListingAPI.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
     "Method": "\u003CMapIdentityApi\u003Eb__1_7",
     "RelativePath": "api/defaultauth/resetPassword",
     "HttpMethod": "POST",
@@ -518,7 +518,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[HotelListingAPI.DTOs.Hotel.GetHotelDto, HotelListingAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[HotelListingAPI.Application.DTOs.Hotel.GetHotelDto, HotelListingAPI.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -538,13 +538,13 @@
     "Parameters": [
       {
         "Name": "createHotelDto",
-        "Type": "HotelListingAPI.DTOs.Hotel.CreateHotelDto",
+        "Type": "HotelListingAPI.Application.DTOs.Hotel.CreateHotelDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "HotelListingAPI.Data.Hotel",
+        "Type": "HotelListingAPI.Domain.Hotel",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -570,7 +570,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[HotelListingAPI.DTOs.Booking.GetBookingDto, HotelListingAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[HotelListingAPI.Application.DTOs.Booking.GetBookingDto, HotelListingAPI.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -590,7 +590,7 @@
     "Parameters": [
       {
         "Name": "createBookingDto",
-        "Type": "HotelListingAPI.DTOs.Booking.CreateBookingDto",
+        "Type": "HotelListingAPI.Application.DTOs.Booking.CreateBookingDto",
         "IsRequired": true
       },
       {
@@ -601,7 +601,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "HotelListingAPI.DTOs.Booking.GetBookingDto",
+        "Type": "HotelListingAPI.Application.DTOs.Booking.GetBookingDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -631,13 +631,13 @@
       },
       {
         "Name": "updateBookingDto",
-        "Type": "HotelListingAPI.DTOs.Booking.UpdateBookingDto",
+        "Type": "HotelListingAPI.Application.DTOs.Booking.UpdateBookingDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "HotelListingAPI.DTOs.Booking.GetBookingDto",
+        "Type": "HotelListingAPI.Application.DTOs.Booking.GetBookingDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -726,7 +726,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[HotelListingAPI.DTOs.Booking.GetBookingDto, HotelListingAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[HotelListingAPI.Application.DTOs.Booking.GetBookingDto, HotelListingAPI.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -752,7 +752,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "HotelListingAPI.DTOs.Hotel.GetHotelDto",
+        "Type": "HotelListingAPI.Application.DTOs.Hotel.GetHotelDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -777,7 +777,7 @@
       },
       {
         "Name": "hotelDto",
-        "Type": "HotelListingAPI.DTOs.Hotel.UpdateHotelDto",
+        "Type": "HotelListingAPI.Application.DTOs.Hotel.UpdateHotelDto",
         "IsRequired": true
       }
     ],

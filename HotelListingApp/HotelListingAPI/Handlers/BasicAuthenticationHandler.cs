@@ -1,12 +1,11 @@
-﻿using HotelListingAPI.Data;
-using HotelListingAPI.DTOs.Auth;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
-using HotelListingAPI.Contracts;
+
+using HotelListingAPI.Application.Contracts;
+using HotelListingAPI.Application.DTOs.Auth;
 
 namespace HotelListingAPI.Handlers;
 

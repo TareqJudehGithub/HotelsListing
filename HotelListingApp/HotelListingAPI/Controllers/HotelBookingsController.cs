@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using HotelListingAPI.AuthorizationFilters;
-using HotelListingAPI.Contracts;
-using HotelListingAPI.DTOs.Booking;
+using HotelListingAPI.Application.Contracts;
+using HotelListingAPI.Application.DTOs.Booking;
 
 namespace HotelListingAPI.Controllers;
 

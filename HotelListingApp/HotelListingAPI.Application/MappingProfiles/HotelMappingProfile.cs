@@ -1,0 +1,34 @@
+﻿using AutoMapper;
+using HotelListingAPI.Application.DTOs.Hotel;
+using HotelListingAPI.Domain;
+
+namespace HotelListingAPI.Application.MappingProfiles;
+
+public class HotelMappingProfile : Profile
+{
+    public HotelMappingProfile()
+    {
+        // add this map for the DTO used by Country.GetCountryDto.Hotels
+        CreateMap<Hotel, GetHotelsDto>();
+
+        CreateMap<Hotel, GetHotelDto>()
+           // For the destination Country (string), map from the source (Country entity: Name property)         
+           .ForMember(d => d.CountryName, cfg => cfg
+            .MapFrom(s => s.Country != null ? s.Country.Name : "Country Name field"));
+
+        // In case we did not decide to use the  'Return newly created hotel along with country name' in HotelsServices
+        //.ForMember(d => d.Country, cfg => cfg.MapFrom<CountryNameResolver>());
+
+        CreateMap<CreateHotelDto, Hotel>().ReverseMap();
+        CreateMap<UpdateHotelDto, Hotel>().ReverseMap();
+    }
+}
+
+// Resolve Country Name in Hotels entity
+public class CountryNameResolver : IValueResolver<Hotel, GetHotelDto, string>
+{
+    public string Resolve(Hotel source, GetHotelDto destination, string destMember, ResolutionContext context)
+    {
+        return source.Country?.Name ?? string.Empty;
+    }
+}

@@ -1,17 +1,18 @@
-using HotelListingAPI.Constants;
-using HotelListingAPI.Contracts;
-using HotelListingAPI.Data;
-using HotelListingAPI.Handlers;
-using HotelListingAPI.MappingProfiles;
-using HotelListingAPI.Services;
-
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Reflection;
 using System.Text;
+
+using HotelListingAPI.Common.Constants;
+using HotelListingAPI.Domain;
+using HotelListingAPI.Handlers;
+using HotelListingAPI.Common.Models;
+using HotelListingAPI.Application.Services;
+using HotelListingAPI.Application.Contracts;
+using HotelListingAPI.Application.MappingProfiles;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,6 +56,15 @@ builder.Services.AddIdentityApiEndpoints<ApplicationUser>(options =>
 builder.Services.AddHttpContextAccessor();
 
 // Authentication 
+// Bind appsettings.json to JwtSettings model
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>() ?? new JwtSettings();
+// Check for JWT key
+if (string.IsNullOrWhiteSpace(jwtSettings.Key))
+{
+    throw new InvalidOperationException("JwtSettings: Key is not configured.");
+}
+
 builder.Services.AddAuthentication(options =>
 {
     // Add scheme and set it as default - JWT 
@@ -80,11 +90,11 @@ builder.Services.AddAuthentication(options =>
             ValidateIssuerSigningKey = true,
 
             // Validate against:
-            ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
-            ValidAudience = builder.Configuration["JwtSettings:Audience"],
+            ValidIssuer = jwtSettings.Issuer,
+            ValidAudience = jwtSettings.Audience,
             // Encode signing key using SymetricSecurityKey
             IssuerSigningKey = new SymmetricSecurityKey(key: Encoding.UTF8
-            .GetBytes(builder.Configuration["JwtSettings:Key"])),
+            .GetBytes(jwtSettings.Key)),
             // Token expiry extra time - Zero for no extra time
             ClockSkew = TimeSpan.Zero
         };

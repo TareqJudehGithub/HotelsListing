@@ -1517,18 +1517,6 @@
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Tools/10.0.7": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore.Design": "8.0.0"
-        },
-        "compile": {
-          "lib/net8.0/_._": {}
-        },
-        "runtime": {
-          "lib/net8.0/_._": {}
-        }
-      },
       "Microsoft.Extensions.DependencyModel/10.0.7": {
         "type": "package",
         "compile": {
@@ -2340,15 +2328,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Security.Cryptography.Pkcs/9.0.4": {
+      "System.Security.Cryptography.Pkcs/10.0.7": {
         "type": "package",
         "compile": {
-          "lib/net9.0/System.Security.Cryptography.Pkcs.dll": {
+          "lib/net10.0/System.Security.Cryptography.Pkcs.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net9.0/System.Security.Cryptography.Pkcs.dll": {
+          "lib/net10.0/System.Security.Cryptography.Pkcs.dll": {
             "related": ".xml"
           }
         },
@@ -2356,7 +2344,7 @@
           "buildTransitive/net8.0/_._": {}
         },
         "runtimeTargets": {
-          "runtimes/win/lib/net9.0/System.Security.Cryptography.Pkcs.dll": {
+          "runtimes/win/lib/net10.0/System.Security.Cryptography.Pkcs.dll": {
             "assetType": "runtime",
             "rid": "win"
           }
@@ -2376,6 +2364,65 @@
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "System.Security.Cryptography.Xml/10.0.7": {
+        "type": "package",
+        "dependencies": {
+          "System.Security.Cryptography.Pkcs": "10.0.7"
+        },
+        "compile": {
+          "lib/net10.0/_._": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/_._": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "HotelListingAPI.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "AutoMapper": "16.1.1",
+          "HotelListingAPI.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/HotelListingAPI.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HotelListingAPI.Application.dll": {}
+        }
+      },
+      "HotelListingAPI.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/HotelListingAPI.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HotelListingAPI.Common.dll": {}
+        }
+      },
+      "HotelListingAPI.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "HotelListingAPI.Common": "1.0.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.7",
+          "Microsoft.EntityFrameworkCore": "10.0.7",
+          "Microsoft.EntityFrameworkCore.SqlServer": "10.0.7"
+        },
+        "compile": {
+          "bin/placeholder/HotelListingAPI.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HotelListingAPI.Domain.dll": {}
         }
       }
     }
@@ -4814,32 +4861,6 @@
         "microsoft.entityframeworkcore.sqlserver.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Tools/10.0.7": {
-      "sha512": "Ui7+Y+E2KwwQvRlbOclMP8HAGXrQFQcOu3NLpKlYdmd5pbhlueyLhnW3SBv1WuXALKESGHR3lMqeANNnl/02Bw==",
-      "type": "package",
-      "path": "microsoft.entityframeworkcore.tools/10.0.7",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "docs/PACKAGE.md",
-        "lib/net8.0/_._",
-        "microsoft.entityframeworkcore.tools.10.0.7.nupkg.sha512",
-        "microsoft.entityframeworkcore.tools.nuspec",
-        "tools/EntityFrameworkCore.PS2.psd1",
-        "tools/EntityFrameworkCore.PS2.psm1",
-        "tools/EntityFrameworkCore.psd1",
-        "tools/EntityFrameworkCore.psm1",
-        "tools/about_EntityFrameworkCore.help.txt",
-        "tools/init.ps1",
-        "tools/net472/any/ef.exe",
-        "tools/net472/win-arm64/ef.exe",
-        "tools/net472/win-x86/ef.exe",
-        "tools/net8.0/any/ef.dll",
-        "tools/net8.0/any/ef.runtimeconfig.json"
-      ]
-    },
     "Microsoft.Extensions.DependencyModel/10.0.7": {
       "sha512": "gCglFg/9Chu3lyJNytRuQAYM3mXQKNs1i01Cz2bc545QaHQ+LbBb4O5UCfu968Gro3ZVSOZ/ktilmPcaUSGSZA==",
       "type": "package",
@@ -6160,20 +6181,21 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Security.Cryptography.Pkcs/9.0.4": {
-      "sha512": "cUFTcMlz/Qw9s90b2wnWSCvHdjv51Bau9FQqhsr4TlwSe1OX+7SoXUqphis5G74MLOvMOCghxPPlEqOdCrVVGA==",
+    "System.Security.Cryptography.Pkcs/10.0.7": {
+      "sha512": "dbdKfF3eA5l+CXiAbDxiCxdezoxeanbue1ck8m49ih1L9uZG6ry8Ul8On6vpragyMDJJP4rQHUY/SWgk66tCYA==",
       "type": "package",
-      "path": "system.security.cryptography.pkcs/9.0.4",
+      "path": "system.security.cryptography.pkcs/10.0.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
-        "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "buildTransitive/net461/System.Security.Cryptography.Pkcs.targets",
         "buildTransitive/net462/_._",
         "buildTransitive/net8.0/_._",
         "buildTransitive/netcoreapp2.0/System.Security.Cryptography.Pkcs.targets",
+        "lib/net10.0/System.Security.Cryptography.Pkcs.dll",
+        "lib/net10.0/System.Security.Cryptography.Pkcs.xml",
         "lib/net462/System.Security.Cryptography.Pkcs.dll",
         "lib/net462/System.Security.Cryptography.Pkcs.xml",
         "lib/net8.0/System.Security.Cryptography.Pkcs.dll",
@@ -6184,11 +6206,13 @@
         "lib/netstandard2.0/System.Security.Cryptography.Pkcs.xml",
         "lib/netstandard2.1/System.Security.Cryptography.Pkcs.dll",
         "lib/netstandard2.1/System.Security.Cryptography.Pkcs.xml",
+        "runtimes/win/lib/net10.0/System.Security.Cryptography.Pkcs.dll",
+        "runtimes/win/lib/net10.0/System.Security.Cryptography.Pkcs.xml",
         "runtimes/win/lib/net8.0/System.Security.Cryptography.Pkcs.dll",
         "runtimes/win/lib/net8.0/System.Security.Cryptography.Pkcs.xml",
         "runtimes/win/lib/net9.0/System.Security.Cryptography.Pkcs.dll",
         "runtimes/win/lib/net9.0/System.Security.Cryptography.Pkcs.xml",
-        "system.security.cryptography.pkcs.9.0.4.nupkg.sha512",
+        "system.security.cryptography.pkcs.10.0.7.nupkg.sha512",
         "system.security.cryptography.pkcs.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -6226,19 +6250,60 @@
         "system.security.cryptography.protecteddata.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "System.Security.Cryptography.Xml/10.0.7": {
+      "sha512": "wG/+ospsC2oR6j7INYh2V5/CWR6Cpt1Zjkxbo0lfovoi/2RpIcGZPVXOPBNVrI5fmrrji0mdNgez+FClDsIuYA==",
+      "type": "package",
+      "path": "system.security.cryptography.xml/10.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Security.Cryptography.Xml.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Security.Cryptography.Xml.targets",
+        "lib/net10.0/System.Security.Cryptography.Xml.dll",
+        "lib/net10.0/System.Security.Cryptography.Xml.xml",
+        "lib/net462/System.Security.Cryptography.Xml.dll",
+        "lib/net462/System.Security.Cryptography.Xml.xml",
+        "lib/net8.0/System.Security.Cryptography.Xml.dll",
+        "lib/net8.0/System.Security.Cryptography.Xml.xml",
+        "lib/net9.0/System.Security.Cryptography.Xml.dll",
+        "lib/net9.0/System.Security.Cryptography.Xml.xml",
+        "lib/netstandard2.0/System.Security.Cryptography.Xml.dll",
+        "lib/netstandard2.0/System.Security.Cryptography.Xml.xml",
+        "system.security.cryptography.xml.10.0.7.nupkg.sha512",
+        "system.security.cryptography.xml.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "HotelListingAPI.Application/1.0.0": {
+      "type": "project",
+      "path": "../HotelListingAPI.Application/HotelListingAPI.Application.csproj",
+      "msbuildProject": "../HotelListingAPI.Application/HotelListingAPI.Application.csproj"
+    },
+    "HotelListingAPI.Common/1.0.0": {
+      "type": "project",
+      "path": "../HotelListingAPI.Comon/HotelListingAPI.Common.csproj",
+      "msbuildProject": "../HotelListingAPI.Comon/HotelListingAPI.Common.csproj"
+    },
+    "HotelListingAPI.Domain/1.0.0": {
+      "type": "project",
+      "path": "../HotelListingAPI.Domain/HotelListingAPI.Domain.csproj",
+      "msbuildProject": "../HotelListingAPI.Domain/HotelListingAPI.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
-      "AutoMapper >= 16.1.1",
+      "HotelListingAPI.Application >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 10.0.7",
-      "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 10.0.7",
       "Microsoft.EntityFrameworkCore.Design >= 10.0.7",
-      "Microsoft.EntityFrameworkCore.SqlServer >= 10.0.7",
-      "Microsoft.EntityFrameworkCore.Tools >= 10.0.7",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 10.0.2",
       "NuGet.Packaging >= 7.3.1",
-      "NuGet.Protocol >= 7.3.1"
+      "NuGet.Protocol >= 7.3.1",
+      "System.Security.Cryptography.Xml >= 10.0.7"
     ]
   },
   "packageFolders": {
@@ -6275,7 +6340,11 @@
         "net10.0": {
           "framework": "net10.0",
           "targetAlias": "net10.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI.Application\\HotelListingAPI.Application.csproj": {
+              "projectPath": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI.Application\\HotelListingAPI.Application.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -6295,29 +6364,11 @@
         "framework": "net10.0",
         "targetAlias": "net10.0",
         "dependencies": {
-          "AutoMapper": {
-            "target": "Package",
-            "version": "[16.1.1, )"
-          },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
             "version": "[10.0.7, )"
           },
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
-            "target": "Package",
-            "version": "[10.0.7, )"
-          },
           "Microsoft.EntityFrameworkCore.Design": {
-            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-            "suppressParent": "All",
-            "target": "Package",
-            "version": "[10.0.7, )"
-          },
-          "Microsoft.EntityFrameworkCore.SqlServer": {
-            "target": "Package",
-            "version": "[10.0.7, )"
-          },
-          "Microsoft.EntityFrameworkCore.Tools": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
             "target": "Package",
@@ -6334,6 +6385,10 @@
           "NuGet.Protocol": {
             "target": "Package",
             "version": "[7.3.1, )"
+          },
+          "System.Security.Cryptography.Xml": {
+            "target": "Package",
+            "version": "[10.0.7, )"
           }
         },
         "imports": [
@@ -6772,5 +6827,17 @@
         }
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1510",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "PackageReference System.Security.Cryptography.Xml will not be pruned. Consider removing this package from your dependencies, as it is likely unnecessary.",
+      "libraryId": "System.Security.Cryptography.Xml",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
 }

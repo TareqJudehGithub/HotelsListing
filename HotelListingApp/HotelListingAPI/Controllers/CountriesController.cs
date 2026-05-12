@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 namespace HotelListingAPI.Controllers;
 
-using HotelListingAPI.Data;
-using HotelListingAPI.DTOs.Country;
+using HotelListingAPI.Application.DTOs.Country;
+using HotelListingAPI.Domain;
 
 [Route("api/[controller]")]
 [ApiController]

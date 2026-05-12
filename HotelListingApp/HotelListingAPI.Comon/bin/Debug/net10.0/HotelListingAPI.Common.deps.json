@@ -1,0 +1,67 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "HotelListingAPI.Common/1.0.0": {
+        "dependencies": {
+          "System.Security.Cryptography.Xml": "10.0.7"
+        },
+        "runtime": {
+          "HotelListingAPI.Common.dll": {}
+        }
+      },
+      "System.Security.Cryptography.Pkcs/10.0.7": {
+        "runtime": {
+          "lib/net10.0/System.Security.Cryptography.Pkcs.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.726.21808"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net10.0/System.Security.Cryptography.Pkcs.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.726.21808"
+          }
+        }
+      },
+      "System.Security.Cryptography.Xml/10.0.7": {
+        "dependencies": {
+          "System.Security.Cryptography.Pkcs": "10.0.7"
+        },
+        "runtime": {
+          "lib/net10.0/System.Security.Cryptography.Xml.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.726.21808"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "HotelListingAPI.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Security.Cryptography.Pkcs/10.0.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dbdKfF3eA5l+CXiAbDxiCxdezoxeanbue1ck8m49ih1L9uZG6ry8Ul8On6vpragyMDJJP4rQHUY/SWgk66tCYA==",
+      "path": "system.security.cryptography.pkcs/10.0.7",
+      "hashPath": "system.security.cryptography.pkcs.10.0.7.nupkg.sha512"
+    },
+    "System.Security.Cryptography.Xml/10.0.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wG/+ospsC2oR6j7INYh2V5/CWR6Cpt1Zjkxbo0lfovoi/2RpIcGZPVXOPBNVrI5fmrrji0mdNgez+FClDsIuYA==",
+      "path": "system.security.cryptography.xml/10.0.7",
+      "hashPath": "system.security.cryptography.xml.10.0.7.nupkg.sha512"
+    }
+  }
+}

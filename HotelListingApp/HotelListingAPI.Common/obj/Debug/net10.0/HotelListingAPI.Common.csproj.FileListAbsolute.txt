@@ -1,0 +1,12 @@
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI.Comon\bin\Debug\net10.0\HotelListingAPI.Common.deps.json
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI.Comon\bin\Debug\net10.0\HotelListingAPI.Common.dll
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI.Comon\bin\Debug\net10.0\HotelListingAPI.Common.pdb
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI.Comon\obj\Debug\net10.0\HotelListingAPI.Common.GeneratedMSBuildEditorConfig.editorconfig
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI.Comon\obj\Debug\net10.0\HotelListingAPI.Common.AssemblyInfoInputs.cache
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI.Comon\obj\Debug\net10.0\HotelListingAPI.Common.AssemblyInfo.cs
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI.Comon\obj\Debug\net10.0\HotelListingAPI.Common.csproj.CoreCompileInputs.cache
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI.Comon\obj\Debug\net10.0\HotelListingAPI.Common.sourcelink.json
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI.Comon\obj\Debug\net10.0\HotelListingAPI.Common.dll
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI.Comon\obj\Debug\net10.0\refint\HotelListingAPI.Common.dll
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI.Comon\obj\Debug\net10.0\HotelListingAPI.Common.pdb
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI.Comon\obj\Debug\net10.0\ref\HotelListingAPI.Common.dll

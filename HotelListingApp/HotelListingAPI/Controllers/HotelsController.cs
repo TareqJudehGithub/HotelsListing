@@ -1,8 +1,9 @@
-﻿using AutoMapper;
-using HotelListingAPI.Constants;
-using HotelListingAPI.Contracts;
-using HotelListingAPI.Data;
-using HotelListingAPI.DTOs.Hotel;
+﻿// Ignore Spelling: Dto
+
+using AutoMapper;
+using HotelListingAPI.Application.Contracts;
+using HotelListingAPI.Application.DTOs.Hotel;
+using HotelListingAPI.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

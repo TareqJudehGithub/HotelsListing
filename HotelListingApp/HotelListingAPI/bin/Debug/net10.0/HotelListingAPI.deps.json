@@ -8,11 +8,9 @@
     ".NETCoreApp,Version=v10.0": {
       "HotelListingAPI/1.0.0": {
         "dependencies": {
-          "AutoMapper": "16.1.1",
+          "HotelListingAPI.Application": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.7",
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.7",
           "Microsoft.EntityFrameworkCore.Design": "10.0.7",
-          "Microsoft.EntityFrameworkCore.SqlServer": "10.0.7",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "10.0.2",
           "NuGet.Packaging": "7.3.1",
           "NuGet.Protocol": "7.3.1"
@@ -1884,6 +1882,40 @@
             "fileVersion": "9.0.625.26613"
           }
         }
+      },
+      "HotelListingAPI.Application/1.0.0": {
+        "dependencies": {
+          "AutoMapper": "16.1.1",
+          "HotelListingAPI.Domain": "1.0.0"
+        },
+        "runtime": {
+          "HotelListingAPI.Application.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "HotelListingAPI.Common/1.0.0": {
+        "runtime": {
+          "HotelListingAPI.Common.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "HotelListingAPI.Domain/1.0.0": {
+        "dependencies": {
+          "HotelListingAPI.Common": "1.0.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.7",
+          "Microsoft.EntityFrameworkCore": "10.0.7",
+          "Microsoft.EntityFrameworkCore.SqlServer": "10.0.7"
+        },
+        "runtime": {
+          "HotelListingAPI.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -2746,6 +2778,21 @@
       "sha512": "sha512-yErfw/3pZkJE/VKza/Cm5idTpIKOy/vsmVi59Ta5SruPVtubzxb8CtnE8tyUpzs5pr0Y28GUFfSVzAhCLN3F/Q==",
       "path": "system.security.cryptography.protecteddata/9.0.6",
       "hashPath": "system.security.cryptography.protecteddata.9.0.6.nupkg.sha512"
+    },
+    "HotelListingAPI.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HotelListingAPI.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HotelListingAPI.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

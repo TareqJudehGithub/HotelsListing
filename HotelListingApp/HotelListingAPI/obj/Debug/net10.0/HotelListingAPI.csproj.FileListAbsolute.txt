@@ -6,9 +6,12 @@ E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\Hote
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\HotelListingAPI.runtimeconfig.json
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\HotelListingAPI.dll
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\HotelListingAPI.pdb
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\AutoMapper.dll
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\Azure.Core.dll
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\Azure.Identity.dll
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\Humanizer.dll
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\Microsoft.AspNetCore.Razor.Language.dll
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\Microsoft.Bcl.AsyncInterfaces.dll
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\Microsoft.Bcl.Cryptography.dll
@@ -245,6 +248,12 @@ E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\runt
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\HotelListingAPI.Application.dll
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\HotelListingAPI.Common.dll
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\HotelListingAPI.Domain.dll
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\HotelListingAPI.Application.pdb
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\HotelListingAPI.Common.pdb
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\HotelListingAPI.Domain.pdb
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\obj\Debug\net10.0\HotelListingAPI.csproj.AssemblyReference.cache
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\obj\Debug\net10.0\rpswa.dswa.cache.json
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\obj\Debug\net10.0\HotelListingAPI.GeneratedMSBuildEditorConfig.editorconfig
@@ -269,6 +278,3 @@ E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\obj\Debug\net10.0\refi
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\obj\Debug\net10.0\HotelListingAPI.pdb
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\obj\Debug\net10.0\HotelListingAPI.genruntimeconfig.cache
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\obj\Debug\net10.0\ref\HotelListingAPI.dll
-E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\AutoMapper.dll
-E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
-E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

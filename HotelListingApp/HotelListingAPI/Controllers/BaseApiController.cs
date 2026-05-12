@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
-using HotelListingAPI.Results;
-using HotelListingAPI.Constants;
+using HotelListingAPI.Common.Constants;
+using HotelListingAPI.Common.Results;
 
 namespace HotelListingAPI.Controllers;
 
