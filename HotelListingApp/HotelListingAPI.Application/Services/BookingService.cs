@@ -10,6 +10,8 @@ using HotelListingAPI.Common.Results;
 using HotelListingAPI.Domain.Enums;
 using HotelListingAPI.Application.Contracts;
 using HotelListingAPI.Application.DTOs.Booking;
+using HotelListingAPI.Common.Models.Paging;
+using HotelListingAPI.Common.Models.Extensions;
 
 namespace HotelListingAPI.Application.Services;
 
@@ -35,23 +37,18 @@ public class BookingService : IBookingService
     #endregion
 
     #region Methods
-    public async Task<Result<IEnumerable<GetBookingDto>>> UserGetHotelBookingsAsync(int hotelId)
+    public async Task<Result<PagedResult<GetBookingDto>>> UserGetHotelBookingsAsync(
+        int hotelId,
+        PaginationParameters paginationParameters)
     {
         // Get userId
         var userId = _usersServices.UserId;
-
-        // Check if userId is not null
-        //if (string.IsNullOrWhiteSpace(userId))
-        //{
-        //    return Result<IEnumerable<GetBookingDto>>
-        //       .Failure(new Error(Code: ErrorCodes.Validation, Description: "User is required"));
-        //}
 
         // Check for existing hotel
         var hotel = await _context.Hotels.FirstOrDefaultAsync(q => q.Id == hotelId);
         if (hotel is null)
         {
-            return Result<IEnumerable<GetBookingDto>>
+            return Result<PagedResult<GetBookingDto>>
                 .NotFound(new Error(Code: ErrorCodes.NotFound, Description: $"Hotel {hotelId} not found."));
         }
         // Return all bookings for hotel found
@@ -59,7 +56,7 @@ public class BookingService : IBookingService
             .Where(q => q.HotelId == hotelId)
             .OrderBy(q => q.CheckIn)
             .ProjectTo<GetBookingDto>(_mapper.ConfigurationProvider)
-          .ToListAsync();
+          .ToPagedResultAsync(paginationParameters);
 
         #region Manual mapping
         //var bookings = await _context.Bookings
@@ -81,7 +78,7 @@ public class BookingService : IBookingService
         //.ToListAsync();
 
         #endregion
-        return Result<IEnumerable<GetBookingDto>>.Success(bookings);
+        return Result<PagedResult<GetBookingDto>>.Success(bookings);
     }
 
     public async Task<Result<GetBookingDto>> CreateHotelBookingAsync(CreateBookingDto createBookingDto)
@@ -247,7 +244,8 @@ public class BookingService : IBookingService
         #endregion
         return Result<GetBookingDto>.Success(updatedBooking);
     }
-    public async Task<Result<IEnumerable<GetBookingDto>>> AdminGetHotelBookingsAsync(int hotelId)
+    public async Task<Result<PagedResult<GetBookingDto>>> AdminGetHotelBookingsAsync(
+        int hotelId, PaginationParameters paginationParameters)
     {
         // Get userId
         var userId = _usersServices.UserId;
@@ -255,7 +253,7 @@ public class BookingService : IBookingService
         // Check if userId is not null
         if (string.IsNullOrWhiteSpace(userId))
         {
-            return Result<IEnumerable<GetBookingDto>>
+            return Result<PagedResult<GetBookingDto>>
                .Failure(new Error(Code: ErrorCodes.Validation, Description: "User is required"));
         }
 
@@ -266,7 +264,7 @@ public class BookingService : IBookingService
 
         if (!isHotelAdminUser)
         {
-            return Result<IEnumerable<GetBookingDto>>
+            return Result<PagedResult<GetBookingDto>>
                 .Failure(new Error(Code: ErrorCodes.Forbid, Description: $"You're not the Admin of the selected hotel."));
         }
 
@@ -276,7 +274,7 @@ public class BookingService : IBookingService
 
         if (hotel is null)
         {
-            return Result<IEnumerable<GetBookingDto>>
+            return Result<PagedResult<GetBookingDto>>
                 .NotFound(new Error(Code: ErrorCodes.NotFound, Description: $"Hotel with Id {hotelId} was not found"));
         }
 
@@ -286,7 +284,7 @@ public class BookingService : IBookingService
             .Where(q => q.HotelId == hotelId)
             .OrderBy(q => q.CheckIn)
             .ProjectTo<GetBookingDto>(_mapper.ConfigurationProvider)
-            .ToListAsync();
+            .ToPagedResultAsync(paginationParameters);
 
         #region Manual Mapping
         //var bookings = await _context.Bookings
@@ -308,7 +306,7 @@ public class BookingService : IBookingService
         //    .ToListAsync();
         #endregion
 
-        return Result<IEnumerable<GetBookingDto>>.Success(value: bookings);
+        return Result<PagedResult<GetBookingDto>>.Success(value: bookings);
     }
     public async Task<Result> CancelHotelBookingAsync(int hotelId, int bookingId)
     {

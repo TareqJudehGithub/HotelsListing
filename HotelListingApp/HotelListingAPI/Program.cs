@@ -8,10 +8,10 @@ using System.Text;
 using HotelListingAPI.Common.Constants;
 using HotelListingAPI.Domain;
 using HotelListingAPI.Handlers;
-using HotelListingAPI.Common.Models;
 using HotelListingAPI.Application.Services;
 using HotelListingAPI.Application.Contracts;
 using HotelListingAPI.Application.MappingProfiles;
+using HotelListingAPI.Common.Models.Config;
 
 
 var builder = WebApplication.CreateBuilder(args);

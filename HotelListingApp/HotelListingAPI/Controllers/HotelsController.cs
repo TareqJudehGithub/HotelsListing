@@ -6,6 +6,7 @@ using HotelListingAPI.Application.DTOs.Hotel;
 using HotelListingAPI.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using HotelListingAPI.Common.Models.Paging;
 
 namespace HotelListingAPI.Controllers;
 
@@ -28,9 +29,10 @@ public class HotelsController : BaseApiController
 
     // GET: api/Hotels
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<GetHotelDto>>> GetHotels()
+    public async Task<ActionResult<PagedResult<GetHotelDto>>> GetHotels(
+        [FromQuery] PaginationParameters paginationParameters)
     {
-        var hotelsDto = await _hotelsServices.GetHotelsAsync();
+        var hotelsDto = await _hotelsServices.GetHotelsAsync(paginationParameters);
         return ToActionResult(hotelsDto);
 
         #region previous code
@@ -48,7 +50,7 @@ public class HotelsController : BaseApiController
         var hotelDto = await _hotelsServices.GetHotelAsync(id);
         return ToActionResult(hotelDto);
 
-        // Or
+        #region Code before Result Pattern       
         //var hotel = await _context.Hotels
         //    .Include(h => h.Country) // Country details navigation propery that matches the foreign key
         //    .FirstOrDefaultAsync(h => h.Id == id);
@@ -68,6 +70,7 @@ public class HotelsController : BaseApiController
         //);
 
         //return hotelDto;
+        #endregion
     }
 
     // POST: api/Hotels

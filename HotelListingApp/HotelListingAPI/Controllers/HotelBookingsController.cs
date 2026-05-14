@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using HotelListingAPI.AuthorizationFilters;
 using HotelListingAPI.Application.Contracts;
 using HotelListingAPI.Application.DTOs.Booking;
+using HotelListingAPI.Common.Models.Paging;
 
 namespace HotelListingAPI.Controllers;
 
@@ -25,15 +26,16 @@ public class HotelBookingsController : BaseApiController
     }
     #endregion
 
-    #region Methods
+    #region API Endpoints
     // GET: "https://localhost/api/hotels/{hotelId}/bookings"
     [HttpGet]
     // [Route("{id:int}")]
-    public async Task<ActionResult<IEnumerable<GetBookingDto>>> UserGetHotelBookings(
-        [FromRoute] int hotelId
+    public async Task<ActionResult<PagedResult<GetBookingDto>>> UserGetHotelBookings(
+        [FromRoute] int hotelId,
+        [FromQuery] PaginationParameters paginationParameters
         )
     {
-        var result = await _bookingService.UserGetHotelBookingsAsync(hotelId);
+        var result = await _bookingService.UserGetHotelBookingsAsync(hotelId, paginationParameters);
         return ToActionResult(result: result);
     }
 
@@ -78,11 +80,12 @@ public class HotelBookingsController : BaseApiController
     // Test:    [Route("{id: int}/admin")]
     [HotelOrSystemAdmin]
     //[Authorize(Roles = "Hotel Admin, Administrator")]
-    public async Task<ActionResult<IEnumerable<GetBookingDto>>> AdminGetHotelBookingsAdmin(
-        [FromRoute] int hotelId
+    public async Task<ActionResult<PagedResult<GetBookingDto>>> AdminGetHotelBookingsAdmin(
+        [FromRoute] int hotelId,
+        [FromQuery] PaginationParameters paginationParameters
         )
     {
-        var result = await _bookingService.AdminGetHotelBookingsAsync(hotelId);
+        var result = await _bookingService.AdminGetHotelBookingsAsync(hotelId, paginationParameters);
         return ToActionResult(result: result);
     }
 

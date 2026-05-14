@@ -1,5 +1,6 @@
 ﻿using HotelListingAPI.Application.DTOs.Hotel;
 using HotelListingAPI.Common.Results;
+using HotelListingAPI.Common.Models.Paging;
 
 namespace HotelListingAPI.Application.Contracts;
 
@@ -14,7 +15,7 @@ public interface IHotelsServices
     //Task DeleteHotelAsync(int id);
     #endregion
     #endregion
-    Task<Result<IEnumerable<GetHotelDto>>> GetHotelsAsync();
+    Task<Result<PagedResult<GetHotelDto>>> GetHotelsAsync(PaginationParameters paginationParameters);
     Task<Result<GetHotelDto>> GetHotelAsync(int id);
     Task<Result<GetHotelDto>> CreateHotelAsync(CreateHotelDto hotelDto);
     Task<Result> UpdateHotelAsync(int id, UpdateHotelDto hotelDto);

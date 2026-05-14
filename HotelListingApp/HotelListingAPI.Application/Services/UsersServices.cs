@@ -8,11 +8,11 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using HotelListingAPI.Domain;
 using HotelListingAPI.Common.Constants;
-using HotelListingAPI.Common.Models;
 using HotelListingAPI.Common.Results;
 using Microsoft.AspNetCore.Http;
 using HotelListingAPI.Application.Contracts;
 using HotelListingAPI.Application.DTOs.Auth;
+using HotelListingAPI.Common.Models.Config;
 
 namespace HotelListingAPI.Application.Services;
 

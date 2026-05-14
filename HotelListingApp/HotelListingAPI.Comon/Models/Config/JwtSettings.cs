@@ -1,4 +1,6 @@
-﻿namespace HotelListingAPI.Common.Models;
+﻿// Ignore Spelling: Jwt
+
+namespace HotelListingAPI.Common.Models.Config;
 
 
 public sealed class JwtSettings

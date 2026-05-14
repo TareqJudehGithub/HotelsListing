@@ -8,6 +8,8 @@ using HotelListingAPI.Common.Constants;
 using HotelListingAPI.Common.Results;
 using HotelListingAPI.Application.DTOs.Hotel;
 using HotelListingAPI.Application.Contracts;
+using HotelListingAPI.Common.Models.Paging;
+using HotelListingAPI.Common.Models.Extensions;
 
 namespace HotelListingAPI.Application.Services
 {
@@ -31,7 +33,7 @@ namespace HotelListingAPI.Application.Services
         #endregion
         #region Methods (Implementations)
 
-        public async Task<Result<IEnumerable<GetHotelDto>>> GetHotelsAsync()
+        public async Task<Result<PagedResult<GetHotelDto>>> GetHotelsAsync(PaginationParameters paginationParameters)
         {
             #region Before Result pattern
             //     public async Task<IEnumerable<GetHotelDto>> GetHotelsAsync()
@@ -65,7 +67,7 @@ namespace HotelListingAPI.Application.Services
             var hotelsDto = await _dbContext.Hotels
                     .Include(q => q.Country)
                     .ProjectTo<GetHotelDto>(_mapper.ConfigurationProvider)
-                    .ToListAsync();
+                    .ToPagedResultAsync(paginationParameters);
 
             #region Manual Mapping
             // Manual mapping
@@ -83,13 +85,13 @@ namespace HotelListingAPI.Application.Services
             #endregion
 
 
-            if (hotelsDto.Count == 0)
+            if (hotelsDto.Data.Count() == 0)
             {
-                return Result<IEnumerable<GetHotelDto>>
+                return Result<PagedResult<GetHotelDto>>
                     .NotFound(new Error(Code: ErrorCodes.NotFound, Description: $"Hotel list is empty."));
             }
 
-            return Result<IEnumerable<GetHotelDto>>.Success(value: hotelsDto);
+            return Result<PagedResult<GetHotelDto>>.Success(value: hotelsDto);
         }
         public async Task<Result<GetHotelDto>> GetHotelAsync(int id)
         {

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HotelListingAPI.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6aa7000666d4eb8e5ddb0f67e7d800e4539c5262")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7e60a033a96d3265396936acd648bb6fedcf69a1")]
 [assembly: System.Reflection.AssemblyProductAttribute("HotelListingAPI.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HotelListingAPI.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -8,6 +8,9 @@ using HotelListingAPI.Domain;
 using HotelListingAPI.Common.Constants;
 using HotelListingAPI.Common.Results;
 using HotelListingAPI.Application.DTOs.Country;
+using HotelListingAPI.Common.Models.Paging;
+using HotelListingAPI.Common.Models.Extensions;
+using HotelListingAPI.Application.DTOs.Hotel;
 
 namespace HotelListingAPI.Application.Services;
 
@@ -57,6 +60,36 @@ public class CountriesService : ICountriesServices
             .ToListAsync();
 
         return Result<IEnumerable<GetCountriesDto>>.Success(countries);
+    }
+    public async Task<Result<PagedResult<GetHotelDto>>> GetCountriesHotelsAsync(
+        int countryId,
+        PaginationParameters paginationParameters)
+    {
+        #region Manual Mapping
+        //var countries = await _context.Countries
+        //    .Select(q => new GetCountriesDto(
+        //        Id: q.Id,
+        //        Name: q.Name,
+        //        ShortName: q.ShortName
+        //        ))
+        //    .ToListAsync();
+        #endregion
+
+        // Check if country exists
+        if (!await CountryExistsAsync(countryId))
+        {
+            return Result<PagedResult<GetHotelDto>>
+                .NotFound(new Error(Code: ErrorCodes.NotFound, Description: $"Country {countryId} was not found."));
+        }
+
+        var query = _context.Hotels
+            .Where(q => q.CountryId == countryId)
+            .OrderBy(q => q.Name)
+            .ProjectTo<GetHotelDto>(_mapper.ConfigurationProvider);
+
+        var paged = await query.ToPagedResultAsync(paginationParameters);
+
+        return Result<PagedResult<GetHotelDto>>.Success(paged);
     }
     #region Before Result pattern
     //public async Task<GetCountryDto?> GetCountryAsync(int id)
@@ -108,6 +141,7 @@ public class CountriesService : ICountriesServices
              :
              Result<GetCountryDto>.Success(countrDto);
     }
+
     #region Before Result Pattern
     //public async Task<GetCountryDto> CreateCountry(CreateCountryDto createCountryDto)
     //{   

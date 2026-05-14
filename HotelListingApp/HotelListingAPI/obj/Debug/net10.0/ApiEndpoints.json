@@ -145,6 +145,42 @@
   },
   {
     "ContainingType": "HotelListingAPI.Controllers.CountriesController",
+    "Method": "GetCountriesHotels",
+    "RelativePath": "api/Countries/{countryId}/hotels",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "countryId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "PageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "HotelListingAPI.Common.Models.Paging.PagedResult\u00601[[HotelListingAPI.Application.DTOs.Hotel.GetHotelDto, HotelListingAPI.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "HotelListingAPI.Controllers.CountriesController",
     "Method": "GetCountry",
     "RelativePath": "api/Countries/{id}",
     "HttpMethod": "GET",
@@ -515,10 +551,21 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "PageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[HotelListingAPI.Application.DTOs.Hotel.GetHotelDto, HotelListingAPI.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "HotelListingAPI.Common.Models.Paging.PagedResult\u00601[[HotelListingAPI.Application.DTOs.Hotel.GetHotelDto, HotelListingAPI.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -566,11 +613,21 @@
         "Name": "hotelId",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "PageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[HotelListingAPI.Application.DTOs.Booking.GetBookingDto, HotelListingAPI.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "HotelListingAPI.Common.Models.Paging.PagedResult\u00601[[HotelListingAPI.Application.DTOs.Booking.GetBookingDto, HotelListingAPI.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -722,11 +779,21 @@
         "Name": "hotelId",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "PageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[HotelListingAPI.Application.DTOs.Booking.GetBookingDto, HotelListingAPI.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "HotelListingAPI.Common.Models.Paging.PagedResult\u00601[[HotelListingAPI.Application.DTOs.Booking.GetBookingDto, HotelListingAPI.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",

@@ -874,6 +874,8 @@
       },
       "HotelListingAPI.Common/1.0.0": {
         "dependencies": {
+          "Microsoft.EntityFrameworkCore": "10.0.7",
+          "Microsoft.EntityFrameworkCore.SqlServer": "10.0.7",
           "System.Security.Cryptography.Xml": "10.0.7"
         },
         "runtime": {
@@ -888,7 +890,6 @@
           "HotelListingAPI.Common": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.7",
           "Microsoft.EntityFrameworkCore": "10.0.7",
-          "Microsoft.EntityFrameworkCore.SqlServer": "10.0.7",
           "System.Security.Cryptography.Xml": "10.0.7"
         },
         "runtime": {

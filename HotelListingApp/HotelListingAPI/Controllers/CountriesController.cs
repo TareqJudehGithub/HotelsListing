@@ -4,6 +4,8 @@ namespace HotelListingAPI.Controllers;
 
 using HotelListingAPI.Application.DTOs.Country;
 using HotelListingAPI.Domain;
+using HotelListingAPI.Common.Models.Paging;
+using HotelListingAPI.Application.DTOs.Hotel;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -21,6 +23,15 @@ public class CountriesController : BaseApiController
     public async Task<ActionResult<IEnumerable<GetCountriesDto>>> GetCountries()
     {
         var result = await _countriesServices.GetCountriesAsync();
+        return ToActionResult(result: result);
+    }
+    // GET: api/countries/{id}/hotels
+    [HttpGet("{countryId:int}/hotels")]
+    public async Task<ActionResult<PagedResult<GetHotelDto>>> GetCountriesHotels(
+        [FromRoute] int countryId,
+        [FromQuery] PaginationParameters paginationParameters)
+    {
+        var result = await _countriesServices.GetCountriesHotelsAsync(countryId, paginationParameters);
         return ToActionResult(result: result);
     }
 

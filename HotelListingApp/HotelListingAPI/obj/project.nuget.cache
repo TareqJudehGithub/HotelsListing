@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "EzOHawQ5/U8=",
+  "dgSpecHash": "Pe3ffjbHWwU=",
   "success": true,
   "projectFilePath": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\HotelListingAPI.csproj",
   "expectedPackageFiles": [
@@ -128,22 +128,8 @@
     "C:\\Users\\USER10\\.nuget\\packages\\system.identitymodel.tokens.jwt\\8.0.1\\system.identitymodel.tokens.jwt.8.0.1.nupkg.sha512",
     "C:\\Users\\USER10\\.nuget\\packages\\system.memory.data\\8.0.1\\system.memory.data.8.0.1.nupkg.sha512",
     "C:\\Users\\USER10\\.nuget\\packages\\system.reflection.metadataloadcontext\\8.0.0\\system.reflection.metadataloadcontext.8.0.0.nupkg.sha512",
-    "C:\\Users\\USER10\\.nuget\\packages\\system.security.cryptography.pkcs\\10.0.7\\system.security.cryptography.pkcs.10.0.7.nupkg.sha512",
-    "C:\\Users\\USER10\\.nuget\\packages\\system.security.cryptography.protecteddata\\9.0.6\\system.security.cryptography.protecteddata.9.0.6.nupkg.sha512",
-    "C:\\Users\\USER10\\.nuget\\packages\\system.security.cryptography.xml\\10.0.7\\system.security.cryptography.xml.10.0.7.nupkg.sha512"
+    "C:\\Users\\USER10\\.nuget\\packages\\system.security.cryptography.pkcs\\9.0.4\\system.security.cryptography.pkcs.9.0.4.nupkg.sha512",
+    "C:\\Users\\USER10\\.nuget\\packages\\system.security.cryptography.protecteddata\\9.0.6\\system.security.cryptography.protecteddata.9.0.6.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1510",
-      "level": "Warning",
-      "message": "PackageReference System.Security.Cryptography.Xml will not be pruned. Consider removing this package from your dependencies, as it is likely unnecessary.",
-      "projectPath": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\HotelListingAPI.csproj",
-      "warningLevel": 1,
-      "filePath": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\HotelListingAPI.csproj",
-      "libraryId": "System.Security.Cryptography.Xml",
-      "targetGraphs": [
-        "net10.0"
-      ]
-    }
-  ]
+  "logs": []
 }
