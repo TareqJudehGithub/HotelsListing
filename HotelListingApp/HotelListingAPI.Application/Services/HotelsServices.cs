@@ -8,8 +8,9 @@ using HotelListingAPI.Common.Constants;
 using HotelListingAPI.Common.Results;
 using HotelListingAPI.Application.DTOs.Hotel;
 using HotelListingAPI.Application.Contracts;
-using HotelListingAPI.Common.Models.Paging;
 using HotelListingAPI.Common.Models.Extensions;
+using HotelListingAPI.Common.Models.Paging;
+using HotelListingAPI.Common.Models.Filtering;
 
 namespace HotelListingAPI.Application.Services
 {
@@ -33,8 +34,108 @@ namespace HotelListingAPI.Application.Services
         #endregion
         #region Methods (Implementations)
 
-        public async Task<Result<PagedResult<GetHotelDto>>> GetHotelsAsync(PaginationParameters paginationParameters)
+        public async Task<Result<PagedResult<GetHotelDto>>> GetHotelsAsync(
+            PaginationParameters paginationParameters,
+            HotelFilterParameters filters)
         {
+            #region Filters
+            // Convert Hotels as queryables
+            var query = _dbContext.Hotels.AsQueryable();
+
+            // Filter By hotel name
+            if (!string.IsNullOrWhiteSpace(filters.HotelName))
+            {
+                query = query
+                    .Where(q => q.Name.Contains(filters.HotelName));
+            }
+            // Filter by CountryId
+            if (filters.CountryId.HasValue)
+            {
+                query = query.Where(q => q.CountryId == filters.CountryId);
+            }
+            // Filter By country name
+            if (!string.IsNullOrWhiteSpace(filters.CountryName))
+            {
+                query = query
+                    .Where(q => q.Country.Name! == filters.CountryName);
+            }
+            // Filter by Min. Rating
+            if (filters.MinRating.HasValue)
+            {
+                query = query.Where(q => q.Rating >= filters.MinRating);
+            }
+            // Filter by Max. Rating
+            if (filters.MaxRating.HasValue)
+            {
+                query = query.Where(q => q.Rating <= filters.MaxRating);
+            }
+            // Filter by Min. Price
+            if (filters.MinPrice.HasValue)
+            {
+                query = query.Where(q => q.PerNightRate >= filters.MinPrice);
+            }
+            // Filter by Max. Price
+            if (filters.MaxPrice.HasValue)
+            {
+                query = query.Where(q => q.PerNightRate <= filters.MaxPrice);
+            }
+            // Filter by Max. Location
+            if (!string.IsNullOrWhiteSpace(filters.Location))
+            {
+                query = query
+                    .Where(q => q.Address.Contains(filters.Location));
+            }
+            // Generic search param
+            if (!string.IsNullOrWhiteSpace(filters.Search))
+            {
+                query = query
+                    .Where(q => q.Name.Contains(filters.Search)
+                    ||
+                    q.Address.Contains(filters.Search));
+            }
+
+            query = filters.SortBy?.ToLower() switch
+            {
+                "name" => filters.SortDescending ?
+                    query.OrderByDescending(h => h.Name) : query.OrderBy(h => h.Name),
+                "rating" => filters.SortDescending ?
+                    query.OrderByDescending(h => h.Rating) : query.OrderBy(h => h.Rating),
+                "price" => filters.SortDescending ?
+                    query.OrderByDescending(h => h.PerNightRate) : query.OrderBy(h => h.PerNightRate),
+                _ => query.OrderBy(h => h.Name)
+            };
+
+            #endregion
+
+            // Auto Mapper 
+            var hotelsDto = await query
+                    .Include(q => q.Country)
+                    .ProjectTo<GetHotelDto>(_mapper.ConfigurationProvider)
+                    .ToPagedResultAsync(paginationParameters);
+
+            #region Manual Mapping
+            // Manual mapping
+            //var hotelsDto = await _dbContext.Hotels
+            //    .Include(q => q.Country)
+            //    .Select(q => new GetHotelDto(
+            //        Id: q.Id,
+            //        Name: q.Name,
+            //        Address: q.Address,
+            //        Rating: q.Rating,
+            //        CountryId: q.CountryId,
+            //        Country: q.Country!.CountryName
+            //        ))
+            //    .ToListAsync();
+            #endregion
+
+            if (hotelsDto.Data.Count() == 0)
+            {
+                return Result<PagedResult<GetHotelDto>>
+                    .NotFound(new Error(Code: ErrorCodes.NotFound, Description: $"Hotel list is empty."));
+            }
+
+            return Result<PagedResult<GetHotelDto>>.Success(value: hotelsDto);
+
             #region Before Result pattern
             //     public async Task<IEnumerable<GetHotelDto>> GetHotelsAsync()
             //{
@@ -62,36 +163,6 @@ namespace HotelListingAPI.Application.Services
             //    return hotelsDto;
             //}
             #endregion
-
-            // Auto Mapper 
-            var hotelsDto = await _dbContext.Hotels
-                    .Include(q => q.Country)
-                    .ProjectTo<GetHotelDto>(_mapper.ConfigurationProvider)
-                    .ToPagedResultAsync(paginationParameters);
-
-            #region Manual Mapping
-            // Manual mapping
-            //var hotelsDto = await _dbContext.Hotels
-            //    .Include(q => q.Country)
-            //    .Select(q => new GetHotelDto(
-            //        Id: q.Id,
-            //        Name: q.Name,
-            //        Address: q.Address,
-            //        Rating: q.Rating,
-            //        CountryId: q.CountryId,
-            //        Country: q.Country!.CountryName
-            //        ))
-            //    .ToListAsync();
-            #endregion
-
-
-            if (hotelsDto.Data.Count() == 0)
-            {
-                return Result<PagedResult<GetHotelDto>>
-                    .NotFound(new Error(Code: ErrorCodes.NotFound, Description: $"Hotel list is empty."));
-            }
-
-            return Result<PagedResult<GetHotelDto>>.Success(value: hotelsDto);
         }
         public async Task<Result<GetHotelDto>> GetHotelAsync(int id)
         {
@@ -352,6 +423,7 @@ namespace HotelListingAPI.Application.Services
             //   await _dbContext.SaveChangesAsync();
             #endregion
         }
+
 
         // Check if hotel exists in DB
         public async Task<bool> HotelExistsAsync(int id)

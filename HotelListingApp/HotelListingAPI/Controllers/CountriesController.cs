@@ -4,8 +4,9 @@ namespace HotelListingAPI.Controllers;
 
 using HotelListingAPI.Application.DTOs.Country;
 using HotelListingAPI.Domain;
-using HotelListingAPI.Common.Models.Paging;
 using HotelListingAPI.Application.DTOs.Hotel;
+using HotelListingAPI.Common.Models.Paging;
+using HotelListingAPI.Common.Models.Filtering;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -20,18 +21,22 @@ public class CountriesController : BaseApiController
 
     // GET: api/Countries
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<GetCountriesDto>>> GetCountries()
+    public async Task<ActionResult<IEnumerable<GetCountriesDto>>> GetCountries(
+        [FromQuery] CountryFilterParameters filters)
     {
-        var result = await _countriesServices.GetCountriesAsync();
+        var result = await _countriesServices.GetCountriesAsync(filters);
         return ToActionResult(result: result);
     }
+
     // GET: api/countries/{id}/hotels
     [HttpGet("{countryId:int}/hotels")]
-    public async Task<ActionResult<PagedResult<GetHotelDto>>> GetCountriesHotels(
-        [FromRoute] int countryId,
-        [FromQuery] PaginationParameters paginationParameters)
+    public async Task<ActionResult<GetCountryHotelsDto>> GetCountriesHotels
+        ([FromRoute] int countryId,
+        [FromQuery] PaginationParameters paginationParameters,
+        [FromQuery] CountryFilterParameters filters)
     {
-        var result = await _countriesServices.GetCountriesHotelsAsync(countryId, paginationParameters);
+        var result = await _countriesServices.GetCountriesHotelsAsync
+            (countryId, paginationParameters, filters);
         return ToActionResult(result: result);
     }
 

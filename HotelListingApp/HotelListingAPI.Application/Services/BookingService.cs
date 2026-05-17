@@ -7,11 +7,12 @@ using AutoMapper.QueryableExtensions;
 using HotelListingAPI.Common.Constants;
 using HotelListingAPI.Domain;
 using HotelListingAPI.Common.Results;
-using HotelListingAPI.Domain.Enums;
+using HotelListingAPI.Common.Enums;
 using HotelListingAPI.Application.Contracts;
 using HotelListingAPI.Application.DTOs.Booking;
-using HotelListingAPI.Common.Models.Paging;
 using HotelListingAPI.Common.Models.Extensions;
+using HotelListingAPI.Common.Models.Paging;
+using HotelListingAPI.Common.Models.Filtering;
 
 namespace HotelListingAPI.Application.Services;
 
@@ -37,24 +38,26 @@ public class BookingService : IBookingService
     #endregion
 
     #region Methods
-    public async Task<Result<PagedResult<GetBookingDto>>> UserGetHotelBookingsAsync(
-        int hotelId,
-        PaginationParameters paginationParameters)
+    public async Task<Result<PagedResult<GetBookingDto>>> UserGetHotelBookingsAsync
+        (int hotelId,
+        PaginationParameters paginationParameters,
+        BookingFilterParameters filters)
     {
         // Get userId
         var userId = _usersServices.UserId;
 
         // Check for existing hotel
         var hotel = await _context.Hotels.FirstOrDefaultAsync(q => q.Id == hotelId);
+
         if (hotel is null)
         {
             return Result<PagedResult<GetBookingDto>>
                 .NotFound(new Error(Code: ErrorCodes.NotFound, Description: $"Hotel {hotelId} not found."));
         }
+        var query = ApplyFilters(hotelId, filters);
+
         // Return all bookings for hotel found
-        var bookings = await _context.Bookings
-            .Where(q => q.HotelId == hotelId)
-            .OrderBy(q => q.CheckIn)
+        var bookings = await query
             .ProjectTo<GetBookingDto>(_mapper.ConfigurationProvider)
           .ToPagedResultAsync(paginationParameters);
 
@@ -135,7 +138,6 @@ public class BookingService : IBookingService
         var booking = _mapper.Map<Booking>(source: createBookingDto);
         booking.UserId = userId;
         booking.CreateAtUtc = DateTime.UtcNow;
-        //booking.UpdateAtUtc = "";
 
         // Add the new booking to DB and save
         await _context.Bookings.AddAsync(booking);
@@ -244,29 +246,11 @@ public class BookingService : IBookingService
         #endregion
         return Result<GetBookingDto>.Success(updatedBooking);
     }
-    public async Task<Result<PagedResult<GetBookingDto>>> AdminGetHotelBookingsAsync(
-        int hotelId, PaginationParameters paginationParameters)
+    public async Task<Result<PagedResult<GetBookingDto>>> AdminGetHotelBookingsAsync
+        (int hotelId,
+        PaginationParameters paginationParameters,
+        BookingFilterParameters filters)
     {
-        // Get userId
-        var userId = _usersServices.UserId;
-
-        // Check if userId is not null
-        if (string.IsNullOrWhiteSpace(userId))
-        {
-            return Result<PagedResult<GetBookingDto>>
-               .Failure(new Error(Code: ErrorCodes.Validation, Description: "User is required"));
-        }
-
-
-        // Check if user is HotelAdmin
-        var isHotelAdminUser = await _context.HotelAdmins
-            .AnyAsync(q => q.UserId == userId && q.HotelId == hotelId);
-
-        if (!isHotelAdminUser)
-        {
-            return Result<PagedResult<GetBookingDto>>
-                .Failure(new Error(Code: ErrorCodes.Forbid, Description: $"You're not the Admin of the selected hotel."));
-        }
 
         // Check for hotel existence
         var hotel = await _context.Hotels
@@ -278,11 +262,30 @@ public class BookingService : IBookingService
                 .NotFound(new Error(Code: ErrorCodes.NotFound, Description: $"Hotel with Id {hotelId} was not found"));
         }
 
-        // return bookings
+        // Get userId
+        var userId = _usersServices.UserId;
 
-        var bookings = await _context.Bookings
-            .Where(q => q.HotelId == hotelId)
-            .OrderBy(q => q.CheckIn)
+        // Check if userId is not null
+        if (string.IsNullOrWhiteSpace(userId))
+        {
+            return Result<PagedResult<GetBookingDto>>
+               .Failure(new Error(Code: ErrorCodes.Validation, Description: "User is required"));
+        }
+
+        // Check if user is HotelAdmin or not
+        var isHotelAdminUser = await _context.HotelAdmins
+            .AnyAsync(q => q.UserId == userId && q.HotelId == hotelId);
+
+        if (!isHotelAdminUser)
+        {
+            return Result<PagedResult<GetBookingDto>>
+                .Failure(new Error(Code: ErrorCodes.Forbid, Description: $"You're not the Admin of the selected hotel."));
+        }
+
+        var query = ApplyFilters(hotelId, filters);
+
+        // return bookings
+        var bookings = await query
             .ProjectTo<GetBookingDto>(_mapper.ConfigurationProvider)
             .ToPagedResultAsync(paginationParameters);
 
@@ -462,6 +465,47 @@ public class BookingService : IBookingService
         return await query.AnyAsync();
     }
     #endregion
+
+    private IQueryable<Booking> ApplyFilters(int hotelId, BookingFilterParameters filters)
+    {
+        var query = _context.Bookings.Where(b => b.HotelId == hotelId);
+
+        if (filters.Status.HasValue)
+            query = query.Where(b => b.Status == filters.Status.Value);
+
+        if (filters.CheckInFrom.HasValue)
+            query = query.Where(b => b.CheckIn >= filters.CheckInFrom.Value);
+
+        if (filters.CheckInTo.HasValue)
+            query = query.Where(b => b.CheckIn <= filters.CheckInTo.Value);
+
+        if (filters.MinPrice.HasValue)
+            query = query.Where(b => b.TotalPrice >= filters.MinPrice.Value);
+
+        if (filters.MaxPrice.HasValue)
+            query = query.Where(b => b.TotalPrice <= filters.MaxPrice.Value);
+
+        if (filters.MinGuests.HasValue)
+            query = query.Where(b => b.Guests >= filters.MinGuests.Value);
+
+        if (filters.MaxGuests.HasValue)
+            query = query.Where(b => b.Guests <= filters.MaxGuests.Value);
+
+        query = filters.SortBy?.ToLower() switch
+        {
+            "checkin" => filters.SortDescending ?
+                query.OrderByDescending(b => b.CheckIn) : query.OrderBy(b => b.CheckIn),
+            "checkout" => filters.SortDescending ?
+                query.OrderByDescending(b => b.CheckOut) : query.OrderBy(b => b.CheckOut),
+            "price" => filters.SortDescending ?
+                query.OrderByDescending(b => b.TotalPrice) : query.OrderBy(b => b.TotalPrice),
+            "created" => filters.SortDescending ?
+                query.OrderByDescending(b => b.CreateAtUtc) : query.OrderBy(b => b.CreateAtUtc),
+            _ => query.OrderBy(b => b.CheckIn)
+        };
+
+        return query;
+    }
 }
 
 
