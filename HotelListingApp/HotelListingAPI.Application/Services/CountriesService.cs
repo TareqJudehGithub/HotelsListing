@@ -1,17 +1,18 @@
 ﻿// Ignore Spelling: Dto
 
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 
-using HotelListingAPI.Domain;
-using HotelListingAPI.Common.Constants;
-using HotelListingAPI.Common.Results;
 using HotelListingAPI.Application.DTOs.Country;
-using HotelListingAPI.Common.Models.Extensions;
 using HotelListingAPI.Application.DTOs.Hotel;
-using HotelListingAPI.Common.Models.Paging;
+using HotelListingAPI.Common.Constants;
+using HotelListingAPI.Common.Models.Extensions;
 using HotelListingAPI.Common.Models.Filtering;
+using HotelListingAPI.Common.Models.Paging;
+using HotelListingAPI.Common.Results;
+using HotelListingAPI.Domain;
 
 namespace HotelListingAPI.Application.Services;
 
@@ -48,8 +49,10 @@ public class CountriesService : ICountriesServices
     {
         var query = _context.Countries.AsQueryable();
 
-        if (!string.IsNullOrWhiteSpace(filters.Search))
+        if (!string.IsNullOrWhiteSpace(filters?.Search))
         {
+            #region Filters
+
             // Filter by Country Name or ShortName colums
             var term = filters.Search.Trim();
             query = query
@@ -72,11 +75,11 @@ public class CountriesService : ICountriesServices
             _ =>
            query.OrderBy(q => q.Name)
         };
-
+            #endregion
         var countries = await query
+            .AsNoTracking()
             .ProjectTo<GetCountriesDto>(_mapper.ConfigurationProvider)
             .ToListAsync();
-
         #region Manual Mapping
         //var countries = await _context.Countries
         //    .Select(q => new GetCountriesDto(
@@ -86,7 +89,6 @@ public class CountriesService : ICountriesServices
         //        ))
         //    .ToListAsync();
         #endregion
-
         return Result<IEnumerable<GetCountriesDto>>.Success(countries);
     }
 
@@ -256,7 +258,7 @@ public class CountriesService : ICountriesServices
             var country = _mapper.Map<Country>(createCountryDto);
 
             // Check for name duplicate
-            if (await CountryExistsAsync(name: country.Name))
+            if (await CountryExistsAsync(name: country.Name, countryId: country.Id))
             {
                 return Result<GetCountryDto>
                     .Failure(new Error(Code: ErrorCodes.Conflict, Description: $"Country with name: {country.Name} already exists."));
@@ -265,6 +267,7 @@ public class CountriesService : ICountriesServices
             await _context.Countries.AddAsync(country);
             await _context.SaveChangesAsync();
 
+            // Map to Dto
             var resultDto = _mapper.Map<GetCountryDto>(source: country);
 
             return Result<GetCountryDto>.Success(resultDto);
@@ -317,9 +320,51 @@ public class CountriesService : ICountriesServices
             return Result
                 .NotFound(new Error(Code: ErrorCodes.NotFound, Description: $"Country with Id: {id} not found."));
         }
-
         // update country records and save
         _mapper.Map(updateDto, country);
+
+        if (await CountryExistsAsync(name: country.Name, countryId: country.Id))
+        {
+            return Result
+                .Failure(new Error(Code: ErrorCodes.Conflict, Description: $"Country with name: {country.Name} already exists."));
+        }
+
+        await _context.SaveChangesAsync();
+
+        return Result.Success();
+    }
+
+    public async Task<Result> PatchCountryAsync
+        (int id, JsonPatchDocument<UpdateCountryDto> patchDoc)
+    {
+        // Get country
+        var country = await _context.Countries.FirstOrDefaultAsync(q => q.Id == id);
+        if (country == null)
+        {
+            return Result
+                .NotFound(new Error(Code: ErrorCodes.NotFound, Description: $"Country with Id: {id} not found."));
+        }
+        // Map country to Dto
+        var countryDto = _mapper.Map<UpdateCountryDto>(country);
+
+        // Apply changes to countryDto
+        patchDoc.ApplyTo(countryDto);
+
+        if (countryDto.Id != id)
+        {
+            return Result
+                .BadRequest(new Error(Code: ErrorCodes.Validation, Description: $"Cannot modify Id field."));
+        }
+
+        // Map to Domain model and save
+        _mapper.Map(countryDto, country);
+
+        // Check for CountryName duplicates
+        if (await CountryExistsAsync(country.Name, country.Id))
+        {
+            return Result
+              .BadRequest(new Error(Code: ErrorCodes.Conflict, Description: $"Country Name already exists."));
+        }
 
         await _context.SaveChangesAsync();
 
@@ -363,14 +408,17 @@ public class CountriesService : ICountriesServices
         }
     }
 
+    #region Validation Methods
+
     public async Task<bool> CountryExistsAsync(int id)
     {
         return await _context.Countries.AnyAsync(e => e.Id == id);
     }
-    public async Task<bool> CountryExistsAsync(string name)
+    public async Task<bool> CountryExistsAsync(string name, int countryId)
     {
         return await _context.Countries
-           .AnyAsync(e => e.Name.ToLower().Trim() == name.ToLower().Trim());
+           .AnyAsync(e => e.Name.ToLower().Trim() == name.ToLower().Trim() && e.Id != countryId);
     }
+    #endregion
     #endregion
 }

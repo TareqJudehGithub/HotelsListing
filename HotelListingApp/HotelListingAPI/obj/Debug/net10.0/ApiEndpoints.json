@@ -259,6 +259,27 @@
   },
   {
     "ContainingType": "HotelListingAPI.Controllers.CountriesController",
+    "Method": "PatchCountry",
+    "RelativePath": "api/Countries/{id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "patchDoc",
+        "Type": "Microsoft.AspNetCore.JsonPatch.Operations.Operation[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HotelListingAPI.Controllers.CountriesController",
     "Method": "DeleteCountry",
     "RelativePath": "api/Countries/{id}",
     "HttpMethod": "DELETE",

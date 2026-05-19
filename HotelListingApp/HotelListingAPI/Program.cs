@@ -21,7 +21,12 @@ var builder = WebApplication.CreateBuilder(args);
 // MSSQL Server Connection string
 var connectionString = builder.Configuration.GetConnectionString("MSSQLConnection");
 builder.Services.AddDbContext<HotelListingsDbContext>(options =>
-options.UseSqlServer(connectionString));
+{
+    options.UseSqlServer(connectionString);
+
+    // Setting AsNoTracking() globally
+    //options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+});
 
 // Identity service
 #region Identity - injecting AddIdentityCore<>
@@ -133,6 +138,8 @@ builder.Services.AddAutoMapper(cfg =>
 
 //  Avoid errors from object cycles, and to return Country details in GetHotels endpoint.
 builder.Services.AddControllers()
+    // Patch requirement (NewtonsoftJson)
+    .AddNewtonsoftJson()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;

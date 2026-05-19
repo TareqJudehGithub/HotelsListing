@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "targets": {
     "net10.0": {
       "AutoMapper/16.1.1": {
@@ -682,6 +682,43 @@
             "related": ".xml"
           }
         }
+      },
+      "Microsoft.AspNetCore.JsonPatch/10.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.3"
+        },
+        "compile": {
+          "lib/net10.0/Microsoft.AspNetCore.JsonPatch.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.AspNetCore.JsonPatch.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Mvc.NewtonsoftJson/10.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.JsonPatch": "10.0.7",
+          "Newtonsoft.Json": "13.0.3",
+          "Newtonsoft.Json.Bson": "1.0.2"
+        },
+        "compile": {
+          "lib/net10.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "Microsoft.AspNetCore.Razor.Language/6.0.24": {
         "type": "package",
@@ -1964,6 +2001,22 @@
           }
         }
       },
+      "Newtonsoft.Json.Bson/1.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.Bson.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.Bson.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "NuGet.Common/7.3.1": {
         "type": "package",
         "dependencies": {
@@ -2371,7 +2424,8 @@
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "AutoMapper": "16.1.1",
-          "HotelListingAPI.Domain": "1.0.0"
+          "HotelListingAPI.Domain": "1.0.0",
+          "Microsoft.AspNetCore.JsonPatch": "10.0.7"
         },
         "compile": {
           "bin/placeholder/HotelListingAPI.Application.dll": {}
@@ -3252,6 +3306,42 @@
         "lib/net10.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.xml",
         "microsoft.aspnetcore.identity.entityframeworkcore.10.0.7.nupkg.sha512",
         "microsoft.aspnetcore.identity.entityframeworkcore.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.JsonPatch/10.0.7": {
+      "sha512": "EKAXIhmjgUIz/y1IRGAKOfbJhkl/CXbeD6mn+f7mtn3cRSq+xBBYxsoXaF3Dob5J3LIGdiZumCmHV9MkO5P7lQ==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.jsonpatch/10.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net10.0/Microsoft.AspNetCore.JsonPatch.dll",
+        "lib/net10.0/Microsoft.AspNetCore.JsonPatch.xml",
+        "lib/net462/Microsoft.AspNetCore.JsonPatch.dll",
+        "lib/net462/Microsoft.AspNetCore.JsonPatch.xml",
+        "lib/netstandard2.0/Microsoft.AspNetCore.JsonPatch.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.JsonPatch.xml",
+        "microsoft.aspnetcore.jsonpatch.10.0.7.nupkg.sha512",
+        "microsoft.aspnetcore.jsonpatch.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Mvc.NewtonsoftJson/10.0.7": {
+      "sha512": "z3aAaAEav7PYOLGRQfD9VuC20SFOoO1BgaTPXE20fOm85Uexml3zjY82srgH14frNhO3uNbu1UE5w3gt3KxWcQ==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.mvc.newtonsoftjson/10.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net10.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll",
+        "lib/net10.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.xml",
+        "microsoft.aspnetcore.mvc.newtonsoftjson.10.0.7.nupkg.sha512",
+        "microsoft.aspnetcore.mvc.newtonsoftjson.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Razor.Language/6.0.24": {
@@ -5673,6 +5763,27 @@
         "packageIcon.png"
       ]
     },
+    "Newtonsoft.Json.Bson/1.0.2": {
+      "sha512": "QYFyxhaABwmq3p/21VrZNYvCg3DaEoN/wUuw5nmfAf0X3HLjgupwhkEWdgfb9nvGAUIv3osmZoD3kKl4jxEmYQ==",
+      "type": "package",
+      "path": "newtonsoft.json.bson/1.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net45/Newtonsoft.Json.Bson.dll",
+        "lib/net45/Newtonsoft.Json.Bson.pdb",
+        "lib/net45/Newtonsoft.Json.Bson.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.Bson.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.Bson.pdb",
+        "lib/netstandard1.3/Newtonsoft.Json.Bson.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.Bson.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.Bson.pdb",
+        "lib/netstandard2.0/Newtonsoft.Json.Bson.xml",
+        "newtonsoft.json.bson.1.0.2.nupkg.sha512",
+        "newtonsoft.json.bson.nuspec"
+      ]
+    },
     "NuGet.Common/7.3.1": {
       "sha512": "1mp7zmyAGmQfT93ELC4c+MYOrJ8Ff4ekFZRek4JSVLb/wOO/o0bsPfLmqujCsJ2Hlwc+fpq1TQEnjSEgWdt8ng==",
       "type": "package",
@@ -6252,6 +6363,8 @@
     "net10.0": [
       "HotelListingAPI.Application >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 10.0.7",
+      "Microsoft.AspNetCore.JsonPatch >= 10.0.7",
+      "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 10.0.7",
       "Microsoft.EntityFrameworkCore.Design >= 10.0.7",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 10.0.2",
       "NuGet.Packaging >= 7.3.1",
@@ -6309,7 +6422,7 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.200"
+      "SdkAnalysisLevel": "10.0.300"
     },
     "frameworks": {
       "net10.0": {
@@ -6317,6 +6430,14 @@
         "targetAlias": "net10.0",
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
+            "target": "Package",
+            "version": "[10.0.7, )"
+          },
+          "Microsoft.AspNetCore.JsonPatch": {
+            "target": "Package",
+            "version": "[10.0.7, )"
+          },
+          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
             "target": "Package",
             "version": "[10.0.7, )"
           },
@@ -6358,7 +6479,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.204/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

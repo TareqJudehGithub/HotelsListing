@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-namespace HotelListingAPI.Controllers;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.JsonPatch;
 
 using HotelListingAPI.Application.DTOs.Country;
-using HotelListingAPI.Domain;
-using HotelListingAPI.Application.DTOs.Hotel;
-using HotelListingAPI.Common.Models.Paging;
 using HotelListingAPI.Common.Models.Filtering;
+using HotelListingAPI.Common.Models.Paging;
+using HotelListingAPI.Domain;
+
+namespace HotelListingAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -71,11 +72,30 @@ public class CountriesController : BaseApiController
     [HttpPut]
     [Route("{id:int}")]
     [Authorize(Roles = "Administrator")]
-    public async Task<IActionResult> PutCountry([FromRoute] int id, [FromBody] UpdateCountryDto countryDto)
+    public async Task<IActionResult> PutCountry
+        ([FromRoute] int id,
+        [FromBody] UpdateCountryDto countryDto)
     {
 
         var result = await _countriesServices.UpdateCountryAsync(id, countryDto);
 
+        return ToActionResult(result: result);
+    }
+
+    [HttpPatch]
+    [Route("{id:int}")]
+    [Authorize(Roles = "Administrator")]
+    // PATCH: api/countries/5
+    public async Task<IActionResult> PatchCountry
+        ([FromRoute] int Id,
+        [FromBody] JsonPatchDocument<UpdateCountryDto> patchDoc)
+    {
+        if (patchDoc is null)
+        {
+            return BadRequest(new { message = "Patch document is required." });
+        }
+
+        var result = await _countriesServices.PatchCountryAsync(Id, patchDoc);
         return ToActionResult(result: result);
     }
 

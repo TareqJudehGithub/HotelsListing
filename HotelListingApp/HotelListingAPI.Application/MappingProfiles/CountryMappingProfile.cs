@@ -15,7 +15,12 @@ public class CountryMappingProfile : Profile
         CreateMap<Country, GetCountryDto>()
             .ForMember(d => d.CountryId, opt => opt
             .MapFrom(s => s.Id));
-        CreateMap<CreateCountryDto, Country>().ReverseMap();
-        CreateMap<UpdateCountryDto, Country>().ReverseMap();
+
+        CreateMap<Country, CreateCountryDto>().ReverseMap();
+
+        CreateMap<Country, UpdateCountryDto>()
+            .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
+            .ReverseMap()
+            .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id));
     }
 }

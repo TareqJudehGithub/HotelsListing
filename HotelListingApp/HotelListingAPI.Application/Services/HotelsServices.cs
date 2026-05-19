@@ -82,16 +82,19 @@ namespace HotelListingAPI.Application.Services
             // Filter by Max. Location
             if (!string.IsNullOrWhiteSpace(filters.Location))
             {
+                var location = filters.Location.Trim();
                 query = query
-                    .Where(q => q.Address.Contains(filters.Location));
+                    .Where(q => EF.Functions.Like(q.Address, $"%{location}%"));
             }
             // Generic search param
             if (!string.IsNullOrWhiteSpace(filters.Search))
             {
+                var search = filters.Search.Trim();
                 query = query
-                    .Where(q => q.Name.Contains(filters.Search)
+                    .Where(q =>
+                    EF.Functions.Like(q.Name, $"%{search}%")
                     ||
-                    q.Address.Contains(filters.Search));
+                    EF.Functions.Like(q.Address, $"%{search}%"));
             }
 
             query = filters.SortBy?.ToLower() switch
@@ -287,8 +290,6 @@ namespace HotelListingAPI.Application.Services
                 return Result<GetHotelDto>
                      .NotFound(new Error(Code: ErrorCodes.NotFound, Description: $"Hotel with Id: {hotelWithCountry.Id} was not found."));
             }
-
-
             #region Manual Mapping
             //var hotelDto = new GetHotelDto(
             //    hotelWithCountry.Id,
@@ -355,16 +356,19 @@ namespace HotelListingAPI.Application.Services
                 return Result.NotFound(new Error(Code: ErrorCodes.NotFound, Description: $"Hotel not found with Id: {id}"));
             }
             // Check Hotel Id
-            if (id != hotel.Id)
+            if (!await HotelExistsAsync(id))
             {
                 return Result.NotFound(new Error(Code: ErrorCodes.NotFound, Description: $"Hotel not found with Id: {id}"));
             }
             // Check for country Id
-            if (!await HotelExistsAsync(id: hotel.CountryId))
+
+
+            if (!await _dbContext.Countries.AnyAsync(q => q.Id == hotel.CountryId))
             {
                 return Result
-                    .NotFound(new Error(Code: ErrorCodes.NotFound, Description: $"Country with Id: {id} was not found."));
+                   .NotFound(new Error(Code: ErrorCodes.NotFound, Description: $"Country with Id: {id} was not found."));
             }
+
             #region Manual Mapping
             // Update hotel records
             //hotel.Name = hotelDto.Name;
@@ -377,18 +381,18 @@ namespace HotelListingAPI.Application.Services
             // AutoMapper
             _mapper.Map(updateHotelDto, hotel);
 
+            if (!await _dbContext.Countries.AnyAsync(q => q.Id == hotel.CountryId))
+            {
+                return Result
+                   .NotFound(new Error(Code: ErrorCodes.NotFound, Description: $"Country with Id: {hotel.CountryId} was not found."));
+            }
+
             if (await HotelExistsAsync(name: hotel.Name))
             {
                 return Result
                     .Failure(new Error(Code: ErrorCodes.Conflict, Description: $"Hotel with name: {hotel.Name} already exists."));
             }
-            // Check if Country do exists
-            if (!await HotelExistsAsync(id: hotel.CountryId))
-            {
-                return Result
-                    .Failure(new Error(Code: ErrorCodes.BadRequest, Description: $"Country with Id: {hotel.CountryId} was not found."));
-            }
-
+            // Check if Hotel do exists
             // Save
             _dbContext.Update(hotel);
             await _dbContext.SaveChangesAsync();
@@ -424,6 +428,7 @@ namespace HotelListingAPI.Application.Services
             #endregion
         }
 
+        #region Validations
 
         // Check if hotel exists in DB
         public async Task<bool> HotelExistsAsync(int id)
@@ -434,6 +439,8 @@ namespace HotelListingAPI.Application.Services
         {
             return await _dbContext.Hotels.AnyAsync(e => e.Name == name);
         }
+        #endregion
+
         #endregion
     }
 }
