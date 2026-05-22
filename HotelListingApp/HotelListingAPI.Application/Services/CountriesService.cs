@@ -13,6 +13,7 @@ using HotelListingAPI.Common.Models.Filtering;
 using HotelListingAPI.Common.Models.Paging;
 using HotelListingAPI.Common.Results;
 using HotelListingAPI.Domain;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace HotelListingAPI.Application.Services;
 
@@ -21,16 +22,19 @@ public class CountriesService : ICountriesServices
     #region Fields
     private readonly HotelListingsDbContext _context;
     private readonly IMapper _mapper;
+    private readonly IMemoryCache _memoryCache;
     #endregion
 
     #region Constructor
     public CountriesService(
         HotelListingsDbContext context,
-        IMapper mapper
+        IMapper mapper,
+        IMemoryCache memoryCache
         )
     {
         _context = context;
         _mapper = mapper;
+        _memoryCache = memoryCache;
     }
     #endregion
 
@@ -49,10 +53,9 @@ public class CountriesService : ICountriesServices
     {
         var query = _context.Countries.AsQueryable();
 
+        #region Filters
         if (!string.IsNullOrWhiteSpace(filters?.Search))
         {
-            #region Filters
-
             // Filter by Country Name or ShortName colums
             var term = filters.Search.Trim();
             query = query
@@ -75,21 +78,45 @@ public class CountriesService : ICountriesServices
             _ =>
            query.OrderBy(q => q.Name)
         };
-            #endregion
-        var countries = await query
-            .AsNoTracking()
-            .ProjectTo<GetCountriesDto>(_mapper.ConfigurationProvider)
-            .ToListAsync();
-        #region Manual Mapping
-        //var countries = await _context.Countries
-        //    .Select(q => new GetCountriesDto(
-        //        Id: q.Id,
-        //        Name: q.Name,
-        //        ShortName: q.ShortName
-        //        ))
-        //    .ToListAsync();
         #endregion
-        return Result<IEnumerable<GetCountriesDto>>.Success(countries);
+
+        #region Caching
+        var searchTerm = filters?.Search?.Trim().ToLowerInvariant() ?? string.Empty;
+        var cacheKey = $"{CountriesListCacheName}{searchTerm}";
+
+        // If data was not in the cache
+        if (!_memoryCache.TryGetValue(key: cacheKey, out IEnumerable<GetCountriesDto>? countriesDto))
+        {
+            countriesDto = await query
+                .AsNoTracking()
+                .ProjectTo<GetCountriesDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+            #region Manual Mapping
+            //var countries = await _context.Countries
+            //    .Select(q => new GetCountriesDto(
+            //        Id: q.Id,
+            //        Name: q.Name,
+            //        ShortName: q.ShortName
+            //        ))
+            //    .ToListAsync();
+            #endregion
+
+            var cacheOptions = new MemoryCacheEntryOptions()
+                .SetSlidingExpiration(TimeSpan.FromMinutes(5))
+                .SetAbsoluteExpiration(TimeSpan.FromMinutes(15));
+
+            _memoryCache.Set(key: cacheKey, value: countriesDto, options: cacheOptions);
+        }
+        #endregion
+        //countriesDto ??= [];
+
+        if (countriesDto is null && !countriesDto.Any())
+        {
+            return Result<IEnumerable<GetCountriesDto>>.
+                NotFound(new Error(Code: ErrorCodes.NotFound, Description: $"Hotel list is empty."));
+        }
+
+        return Result<IEnumerable<GetCountriesDto>>.Success(countriesDto);
     }
 
     public async Task<Result<GetCountryHotelsDto>> GetCountriesHotelsAsync(
@@ -199,11 +226,30 @@ public class CountriesService : ICountriesServices
     #endregion
     public async Task<Result<GetCountryDto>> GetCountryAsync(int id)
     {
-        //  return selected country including all hotels
-        var countrDto = await _context.Countries
-            .Where(c => c.Id == id)
-            .ProjectTo<GetCountryDto>(_mapper.ConfigurationProvider)
-            .FirstOrDefaultAsync();
+        #region Caching
+        // Check the cache
+        var cacheKey = $"{CountryCacheName}{id}";
+
+        // If not found in cache, then hit the database (Cache hit or miss)
+        if (!_memoryCache.TryGetValue(key: cacheKey, value: out GetCountryDto? countrDto))
+        {
+            //  return selected country including all hotels
+            countrDto = await _context.Countries
+                .Where(c => c.Id == id)
+                .ProjectTo<GetCountryDto>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+
+            // If found
+            if (countrDto is not null)
+            {
+                var cacheOptions = new MemoryCacheEntryOptions()
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(5))
+                    .SetAbsoluteExpiration(TimeSpan.FromHours(1));
+
+                _memoryCache.Set(key: cacheKey, value: countrDto, options: cacheOptions);
+            }
+        }
+        #endregion
 
         if (!await CountryExistsAsync(id))
         {
@@ -270,6 +316,12 @@ public class CountriesService : ICountriesServices
             // Map to Dto
             var resultDto = _mapper.Map<GetCountryDto>(source: country);
 
+            #region Caching
+            // Refresh Cache with the new entry
+            _memoryCache.Remove(key: CountriesListCacheName);
+            #endregion
+
+
             return Result<GetCountryDto>.Success(resultDto);
         }
         catch (Exception)
@@ -299,6 +351,7 @@ public class CountriesService : ICountriesServices
     //    await _context.SaveChangesAsync();
     //}
     #endregion
+
     public async Task<Result> UpdateCountryAsync(int id, UpdateCountryDto updateDto)
     {
 
@@ -330,6 +383,10 @@ public class CountriesService : ICountriesServices
         }
 
         await _context.SaveChangesAsync();
+        #region Caching
+        // Refresh Cache after Update
+        InvalidateCountryCache(id);
+        #endregion
 
         return Result.Success();
     }
@@ -368,6 +425,10 @@ public class CountriesService : ICountriesServices
 
         await _context.SaveChangesAsync();
 
+        #region Caching
+        // Refresh Cache after patch
+        InvalidateCountryCache(id);
+        #endregion
         return Result.Success();
     }
 
@@ -385,6 +446,7 @@ public class CountriesService : ICountriesServices
     //    await _context.SaveChangesAsync();
     //}
     #endregion
+
     public async Task<Result> DeleteCountryAsync(int id)
     {
         if (!await CountryExistsAsync(id))
@@ -396,9 +458,16 @@ public class CountriesService : ICountriesServices
         try
         {
             var country = await _context.Countries.FirstOrDefaultAsync(q => q.Id == id);
+            if (country is not null)
+            {
+                _context.Countries.Remove(country);
+                await _context.SaveChangesAsync();
+            }
 
-            _context.Countries.Remove(country);
-            await _context.SaveChangesAsync();
+            #region Caching
+            // Refresh Cache after delete
+            InvalidateCountryCache(id);
+            #endregion
 
             return Result.Success();
         }
@@ -406,6 +475,15 @@ public class CountriesService : ICountriesServices
         {
             return Result.Failure();
         }
+    }
+
+
+    private const string CountriesListCacheName = $"countries_list_";
+    private const string CountryCacheName = $"countries_list_";
+    private void InvalidateCountryCache(int id)
+    {
+        // Look for the country Id and remove it from cache
+        _memoryCache.Remove($"{CountryCacheName}{id}");
     }
 
     #region Validation Methods

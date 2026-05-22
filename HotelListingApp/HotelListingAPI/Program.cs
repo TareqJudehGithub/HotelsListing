@@ -22,7 +22,22 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("MSSQLConnection");
 builder.Services.AddDbContext<HotelListingsDbContext>(options =>
 {
-    options.UseSqlServer(connectionString);
+    options.UseSqlServer(connectionString, sqlOptions =>
+    {
+        // Connection retries
+        sqlOptions.CommandTimeout(30);
+        sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 3,
+            maxRetryDelay: TimeSpan.FromSeconds(5),
+            errorNumbersToAdd: null
+            );
+    });
+    // For development only
+    if (builder.Environment.IsDevelopment())
+    {
+        options.EnableSensitiveDataLogging();
+        options.EnableDetailedErrors();
+    }
 
     // Setting AsNoTracking() globally
     //options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
@@ -146,6 +161,13 @@ builder.Services.AddControllers()
     });
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 
+
+// Register  In-Memory Caching
+builder.Services.AddMemoryCache();
+
+// Out-Put Caching
+//builder.Services.AddOutputCache();
+
 var app = builder.Build();
 
 // Add Identity endpoints middleware
@@ -160,6 +182,9 @@ app.MapGroup("api/defaultauth").MapIdentityApi<ApplicationUser>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+// Out-Put Cache middleware
+//app.UseOutputCache();
 
 app.MapControllers();
 

@@ -6,6 +6,7 @@ using HotelListingAPI.Application.DTOs.Country;
 using HotelListingAPI.Common.Models.Filtering;
 using HotelListingAPI.Common.Models.Paging;
 using HotelListingAPI.Domain;
+using Microsoft.AspNetCore.OutputCaching;
 
 namespace HotelListingAPI.Controllers;
 
@@ -21,6 +22,8 @@ public class CountriesController : BaseApiController
     }
 
     // GET: api/Countries
+    //[OutputCache]  
+
     [HttpGet]
     public async Task<ActionResult<IEnumerable<GetCountriesDto>>> GetCountries(
         [FromQuery] CountryFilterParameters filters)
