@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using HotelListingAPI.Application.Contracts;
 using HotelListingAPI.Application.DTOs.Auth;
 using HotelListingAPI.Common.Models.Config;
+using Microsoft.Extensions.Logging;
 
 namespace HotelListingAPI.Application.Services;
 
@@ -24,6 +25,7 @@ public class UsersServices : IUsersServices
     private readonly IOptions<JwtSettings> _jwtOptions;
     private readonly IHttpContextAccessor _contextAccessor;
     private readonly HotelListingsDbContext _dbContext;
+    private readonly ILogger<UsersServices> _logger;
 
     //  string IUsersServices.UserId => throw new NotImplementedException();
     #endregion
@@ -34,7 +36,8 @@ public class UsersServices : IUsersServices
           SignInManager<ApplicationUser> signInManager,
        IOptions<JwtSettings> jwtOptions,
         IHttpContextAccessor httpContextAccessor,
-        HotelListingsDbContext dbContext
+        HotelListingsDbContext dbContext,
+        ILogger<UsersServices> logger
         )
     {
         _userManager = userManager;
@@ -42,6 +45,7 @@ public class UsersServices : IUsersServices
         _jwtOptions = jwtOptions;
         _contextAccessor = httpContextAccessor;
         _dbContext = dbContext;
+        _logger = logger;
     }
     #endregion
 
@@ -66,6 +70,9 @@ public class UsersServices : IUsersServices
             var errors = result.Errors
                 .Select(error => new Error(Code: ErrorCodes.BadRequest, Description: error.Description))
                 .ToArray();
+
+            // Logging errors
+            _logger.LogError(message: $"User registration failed for Email: {registerUserDto.Email} with errors: {string.Join(", ", errors)}");
 
             return Result<RegisteredUserDto>.BadRequest(errors: errors);
         }
@@ -109,6 +116,8 @@ public class UsersServices : IUsersServices
         // Check for null
         if (user is null)
         {
+            _logger.LogWarning(message: $"Failed login attempt for email: {loginUserDto.Email}");
+
             return Result<string>
                 .NotFound(errors: new Error(Code: ErrorCodes.NotFound, Description: "User not found"));
         }
@@ -196,26 +205,5 @@ public class UsersServices : IUsersServices
             .User?
             .FindFirst(ClaimTypes.NameIdentifier)?.Value
         ?? string.Empty;
-    //public string UserId()
-    //{
-    //    // Get userId
-    //    // Get userId from JWT claims - Find the 1st name with this sub
-    //    var userId = _contextAccessor?
-    //        .HttpContext?
-    //        .User?
-    //        .FindFirst(type: JwtRegisteredClaimNames.Sub)?
-    //        .Value
-    //        ??
-    //        _contextAccessor?
-    //         .HttpContext?
-    //        .User?
-    //        .FindFirst(type: ClaimTypes.NameIdentifier)?
-    //        .Value
-    //        ??
-    //        string.Empty;
-
-    //    // Return the userId if found, if not then return an empty string instead.
-    //    return userId ?? string.Empty;
-    //}
     #endregion
 }

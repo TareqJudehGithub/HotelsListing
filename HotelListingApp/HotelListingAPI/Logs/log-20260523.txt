@@ -1,0 +1,46 @@
+2026-05-23 17:53:33.386 +03:00 [INF] Starting HotelListing API
+2026-05-23 17:53:33.804 +03:00 [INF] HotelListing API started successfully!
+2026-05-23 19:16:18.751 +03:00 [INF] Starting HotelListing API
+2026-05-23 19:16:19.191 +03:00 [INF] HotelListing API started successfully!
+2026-05-23 19:16:19.437 +03:00 [INF] Now listening on: https://localhost:7036
+2026-05-23 19:16:19.441 +03:00 [INF] Now listening on: http://localhost:5094
+2026-05-23 19:16:19.499 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-23 19:16:19.500 +03:00 [INF] Hosting environment: Development
+2026-05-23 19:16:19.504 +03:00 [INF] Content root path: E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI
+2026-05-23 20:32:50.483 +03:00 [INF] Starting HotelListing API
+2026-05-23 20:32:51.095 +03:00 [INF] HotelListing API started successfully!
+2026-05-23 20:32:51.396 +03:00 [INF] Now listening on: https://localhost:7036
+2026-05-23 20:32:51.401 +03:00 [INF] Now listening on: http://localhost:5094
+2026-05-23 20:32:51.466 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-23 20:32:51.468 +03:00 [INF] Hosting environment: Development
+2026-05-23 20:32:51.470 +03:00 [INF] Content root path: E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI
+2026-05-23 20:34:00.869 +03:00 [WRN] HTTP GET /api/Countries responded 401 in 17.2509ms
+2026-05-23 20:34:45.904 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+2026-05-23 20:34:47.106 +03:00 [WRN] Failed login attempt for email: global.admin@1localhost.com
+2026-05-23 20:34:47.117 +03:00 [WRN] HTTP GET /api/auth/login responded 404 in 2455.1014ms
+2026-05-23 20:35:30.737 +03:00 [WRN] HTTP POST /api/auth/register responded 400 in 96.2898ms
+2026-05-23 20:36:10.078 +03:00 [ERR] User registration failed for Email: global.admin@localhost.com with errors: Error { Code = BadRequest, Description = Username 'global.admin@localhost.com' is already taken., IsNone = False }
+2026-05-23 20:36:10.081 +03:00 [WRN] HTTP POST /api/auth/register responded 400 in 349.8078ms
+2026-05-23 20:36:38.473 +03:00 [ERR] User registration failed for Email: global.admin@localhost.com with errors: Error { Code = BadRequest, Description = Username 'global.admin@localhost.com' is already taken., IsNone = False }
+2026-05-23 20:36:38.475 +03:00 [WRN] HTTP POST /api/auth/register responded 400 in 128.2990ms
+2026-05-23 20:37:03.286 +03:00 [ERR] User registration failed for Email: global.admin@localhost.com with errors: Error { Code = BadRequest, Description = Username 'global.admin@localhost.com' is already taken., IsNone = False }
+2026-05-23 20:37:03.290 +03:00 [WRN] HTTP POST /api/auth/register responded 400 in 94.3759ms
+2026-05-23 20:38:18.823 +03:00 [WRN] Failed login attempt for email: global.admin222@1localhost.com
+2026-05-23 20:38:18.825 +03:00 [WRN] HTTP GET /api/auth/login responded 404 in 7.5766ms
+2026-05-23 20:38:42.233 +03:00 [WRN] Failed login attempt for email: global.admin222@1localhost.com
+2026-05-23 20:38:42.236 +03:00 [WRN] HTTP GET /api/auth/login responded 404 in 5.2309ms
+2026-05-23 20:39:22.540 +03:00 [INF] HTTP GET /api/auth/login responded 200 in 174.9350ms
+2026-05-23 21:10:16.102 +03:00 [INF] Starting HotelListing API
+2026-05-23 21:10:16.560 +03:00 [INF] HotelListing API started successfully!
+2026-05-23 21:10:16.792 +03:00 [INF] Now listening on: https://localhost:7036
+2026-05-23 21:10:16.797 +03:00 [INF] Now listening on: http://localhost:5094
+2026-05-23 21:10:16.869 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-23 21:10:16.871 +03:00 [INF] Hosting environment: Development
+2026-05-23 21:10:16.873 +03:00 [INF] Content root path: E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI
+2026-05-23 21:10:48.069 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+2026-05-23 21:10:49.365 +03:00 [INF] HTTP GET /api/auth/login responded 200 in 2263.9090ms
+2026-05-23 21:11:11.189 +03:00 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-05-23 21:11:11.382 +03:00 [INF] HTTP GET /api/Countries responded 200 in 373.7469ms
+2026-05-23 21:11:22.585 +03:00 [WRN] HTTP GET /api/Countriess responded 404 in 0.1273ms
+2026-05-23 21:11:34.423 +03:00 [WRN] HTTP GET /api/Countries responded 429 in 12.2380ms
+2026-05-23 21:12:23.479 +03:00 [INF] HTTP GET /api/Countries responded 200 in 21.4890ms

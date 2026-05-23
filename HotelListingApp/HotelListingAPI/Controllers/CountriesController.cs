@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿// Ignore Spelling: Dto
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.JsonPatch;
 
@@ -7,11 +9,13 @@ using HotelListingAPI.Common.Models.Filtering;
 using HotelListingAPI.Common.Models.Paging;
 using HotelListingAPI.Domain;
 using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace HotelListingAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[EnableRateLimiting("fixed")]
 [Authorize]
 public class CountriesController : BaseApiController
 {
