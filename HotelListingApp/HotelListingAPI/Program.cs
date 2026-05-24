@@ -1,13 +1,22 @@
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using HealthChecks.UI.Client;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+
 using System.Text;
+using System.Text.Json;
+
 using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
+
 using Serilog;
 using Serilog.Events;
+
 
 using HotelListingAPI.Common.Constants;
 using HotelListingAPI.Domain;
@@ -18,6 +27,7 @@ using HotelListingAPI.Application.MappingProfiles;
 using HotelListingAPI.Common.Models.Config;
 using HotelListing.Api.Middleware;
 
+#region Logging
 // Logging
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
@@ -28,6 +38,7 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
     .CreateBootstrapLogger();
+#endregion
 
 try
 {
@@ -35,14 +46,18 @@ try
 
     var builder = WebApplication.CreateBuilder(args);
 
+    #region Serilog service
+
     // Inject Serilog service
     builder.Host.UseSerilog((context, services, configuration) => configuration
        .ReadFrom.Configuration(context.Configuration)
        .ReadFrom.Services(services)
    );
+    #endregion
 
     // Add services to the IoC container.
 
+    #region MSSQL Server Connection string
     // MSSQL Server Connection string
     var connectionString = builder.Configuration.GetConnectionString("MSSQLConnection");
     builder.Services.AddDbContext<HotelListingsDbContext>(options =>
@@ -67,7 +82,9 @@ try
         // Setting AsNoTracking() globally
         //options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
     });
+    #endregion
 
+    #region Identity services(s)
     // Identity service
     #region Identity - injecting AddIdentityCore<>
     //builder.Services.AddIdentityCore<ApplicationUser>(options =>
@@ -82,7 +99,6 @@ try
     //    // Identity Database store location
     //    .AddEntityFrameworkStores<HotelListingsDbContext>();
     #endregion
-
     // Identity service - AddIdentityEndPoints<> - Access to API endpoints
     builder.Services.AddIdentityApiEndpoints<ApplicationUser>(options =>
     {
@@ -96,10 +112,12 @@ try
 
         // Identity Database store location
         .AddEntityFrameworkStores<HotelListingsDbContext>();
+    #endregion
 
     // HttpContextAccessor
     builder.Services.AddHttpContextAccessor();
 
+    #region Authentication
     // Authentication 
     // Bind appsettings.json to JwtSettings model
     builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
@@ -150,9 +168,12 @@ try
         // Basic auth and API Key
         .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>(AuthenticationDefaults.BasicScheme, _ => { })
         .AddScheme<AuthenticationSchemeOptions, ApiKeyAuthenticationHandler>(AuthenticationDefaults.ApiKeyScheme, _ => { });
+    #endregion
 
     // Register AddAuthorization service
     builder.Services.AddAuthorization();
+
+    #region DI services
 
     // Adding Service Layers <abstract, implementation>
     builder.Services.AddScoped<ICountriesServices, CountriesService>();
@@ -160,6 +181,7 @@ try
     builder.Services.AddScoped<IUsersServices, UsersServices>();
     builder.Services.AddScoped<IApiKeyValidatorService, ApiKeyValidatorService>();
     builder.Services.AddScoped<IBookingService, BookingService>();
+    #endregion
 
     // Exception Handler
     builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
@@ -188,14 +210,15 @@ try
         {
             options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
         });
-    // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 
+    #region Caching
 
     // Register  In-Memory Caching
     builder.Services.AddMemoryCache();
 
     // Out-Put Caching
     //builder.Services.AddOutputCache();
+    #endregion
 
     // Rate Limiting service
     builder.Services.AddRateLimiter(options =>
@@ -229,12 +252,40 @@ try
 
     });
 
+    #region HealthCheck Service
+
+    builder.Services.AddHealthChecks()
+        // Regular self-check
+        .AddCheck("self", () => HealthCheckResult.Healthy("Application is running"),
+        tags: ["api"])
+        // DB check
+        .AddDbContextCheck<HotelListingsDbContext>(
+        name: "database",
+        failureStatus: HealthStatus.Unhealthy,
+        tags: ["db", "sql"]
+        );
+
+    #region Health Check UI service
+    //builder.Services.AddHealthChecksUI(setup =>
+    //{
+    //    setup.SetEvaluationTimeInSeconds(10); // Check every 10 seconds
+    //    setup.MaximumHistoryEntriesPerEndpoint(50);
+    //    setup.AddHealthCheckEndpoint("HotelListing API", "/healthz");
+    //})
+    //    .AddInMemoryStorage();
+    #endregion
+
+    #endregion
+
     var app = builder.Build();
+
+    #region Middlewares
 
     // Exception Handler middleware
     app.UseExceptionHandler();
 
-    // Serilog middleware
+    #region Serilog middleware
+
     app.UseSerilogRequestLogging(options =>
     {
         options.MessageTemplate = "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000}ms";
@@ -258,16 +309,73 @@ try
             }
         };
     });
+    #endregion
 
+    #region Identity Endpoints    
     // Add Identity endpoints middleware
     // app.MapIdentityApi<ApplicationUser>();   for default endpoints path
 
     // identity - AddIdentityEndPoints 
     app.MapGroup("api/defaultauth").MapIdentityApi<ApplicationUser>();
-
-    // identity - custom authentication endpoints
+    #endregion
 
     app.UseHttpsRedirection();
+
+    #region Health Check Middleware
+    // Health Check
+    app.MapHealthChecks("/healthz", new HealthCheckOptions
+    {
+        ResponseWriter = async (context, report) =>
+        {
+            context.Response.ContentType = "application/json";
+
+            var response = new
+            {
+                status = report.Status.ToString(),
+                checks = report.Entries.Select(entry => new
+                {
+                    name = entry.Key,
+                    status = entry.Value.Status.ToString(),
+                    description = entry.Value.Description,
+                    duration = entry.Value.Duration,
+                    exception = entry.Value.Exception?.Message,
+                    data = entry.Value.Data
+                }),
+                totalDuration = report.TotalDuration.TotalMilliseconds
+            };
+
+            await context.Response.WriteAsync(JsonSerializer.Serialize(response, new JsonSerializerOptions
+            {
+                WriteIndented = true
+            }));
+        }
+    });
+
+    app.MapHealthChecks("/healthz/live", new HealthCheckOptions
+    {
+        Predicate = _ => false
+    });
+    // Readiness Check
+    app.MapHealthChecks("/healthz/ready", new HealthCheckOptions
+    {
+        Predicate = check => check.Tags.Contains("db")
+    });
+
+    #region HealthChecks UI delegates
+    // HealthCheck UI
+    //app.MapHealthChecks("/healthz-ui", new HealthCheckOptions
+    //{
+    //    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    //});
+
+    // HealthChecks UI
+    //app.MapHealthChecksUI(options =>
+    //{
+    //    options.UIPath = "/healthchecks-ui";
+    //    options.ApiPath = "/healthchecks-api";
+    //});
+    #endregion
+    #endregion
 
     // Rate Limiting
     app.UseRateLimiter();
@@ -280,6 +388,7 @@ try
     app.MapControllers();
 
     Log.Information("HotelListing API started successfully!");
+    #endregion
 
     app.Run();
 }
