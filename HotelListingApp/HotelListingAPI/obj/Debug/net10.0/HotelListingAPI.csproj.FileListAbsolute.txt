@@ -271,7 +271,6 @@ E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\obj\Debug\net10.0\stat
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\obj\Debug\net10.0\staticwebassets.development.json
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\obj\Debug\net10.0\swae.build.ex.cache
-E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\obj\Debug\net10.0\HotelLis.7BDD56F8.Up2Date
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\obj\Debug\net10.0\HotelListingAPI.dll
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\obj\Debug\net10.0\refint\HotelListingAPI.dll
@@ -304,3 +303,8 @@ E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\Iden
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\KubernetesClient.dll
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.InMemory.dll
 E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\YamlDotNet.dll
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\Asp.Versioning.Abstractions.dll
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\Asp.Versioning.Http.dll
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\Asp.Versioning.Mvc.dll
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\bin\Debug\net10.0\Asp.Versioning.Mvc.ApiExplorer.dll
+E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI\obj\Debug\net10.0\HotelListingAPI.MvcApplicationPartsAssemblyInfo.cs

@@ -1,9 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "SU3skiie8AM=",
+  "dgSpecHash": "Qmq0Cc87qi8=",
   "success": true,
   "projectFilePath": "E:\\WebDev\\Trevor\\HotelMng\\HotelListingApp\\HotelListingAPI\\HotelListingAPI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\USER10\\.nuget\\packages\\asp.versioning.abstractions\\10.0.0\\asp.versioning.abstractions.10.0.0.nupkg.sha512",
+    "C:\\Users\\USER10\\.nuget\\packages\\asp.versioning.http\\10.0.0\\asp.versioning.http.10.0.0.nupkg.sha512",
+    "C:\\Users\\USER10\\.nuget\\packages\\asp.versioning.mvc\\10.0.0\\asp.versioning.mvc.10.0.0.nupkg.sha512",
+    "C:\\Users\\USER10\\.nuget\\packages\\asp.versioning.mvc.apiexplorer\\10.0.0\\asp.versioning.mvc.apiexplorer.10.0.0.nupkg.sha512",
     "C:\\Users\\USER10\\.nuget\\packages\\aspnetcore.healthchecks.ui\\9.0.0\\aspnetcore.healthchecks.ui.9.0.0.nupkg.sha512",
     "C:\\Users\\USER10\\.nuget\\packages\\aspnetcore.healthchecks.ui.client\\9.0.0\\aspnetcore.healthchecks.ui.client.9.0.0.nupkg.sha512",
     "C:\\Users\\USER10\\.nuget\\packages\\aspnetcore.healthchecks.ui.core\\9.0.0\\aspnetcore.healthchecks.ui.core.9.0.0.nupkg.sha512",

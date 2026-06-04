@@ -1,22 +1,28 @@
 ﻿// Ignore Spelling: Dto
 
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.JsonPatch;
-
+using Asp.Versioning;
 using HotelListingAPI.Application.DTOs.Country;
 using HotelListingAPI.Common.Models.Filtering;
 using HotelListingAPI.Common.Models.Paging;
 using HotelListingAPI.Domain;
-using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 
 namespace HotelListingAPI.Controllers;
 
-[Route("api/[controller]")]
+//[Route("api/[controller]")]
+[Route("api/v{version:apiVersion}/[controller]")]
+[ApiVersion("1.0")]
 [ApiController]
-[EnableRateLimiting("fixed")]
-[Authorize]
+
+//[Authorize]
+[AllowAnonymous]
+#region RateLimiting
+// Remove comment to enable Rate Limiting on this controller
+//[EnableRateLimiting("fixed")]
+#endregion
 public class CountriesController : BaseApiController
 {
     private readonly ICountriesServices _countriesServices;
@@ -26,7 +32,6 @@ public class CountriesController : BaseApiController
     }
 
     // GET: api/Countries
-    //[OutputCache]  
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<GetCountriesDto>>> GetCountries(

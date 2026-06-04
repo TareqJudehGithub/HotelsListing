@@ -1,31 +1,26 @@
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Asp.Versioning;
 using HealthChecks.UI.Client;
-
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-
-using System.Text;
-using System.Text.Json;
-
-using Microsoft.AspNetCore.RateLimiting;
-using System.Threading.RateLimiting;
-
-using Serilog;
-using Serilog.Events;
-
-
-using HotelListingAPI.Common.Constants;
-using HotelListingAPI.Domain;
-using HotelListingAPI.Handlers;
-using HotelListingAPI.Application.Services;
+using HotelListing.Api.Middleware;
 using HotelListingAPI.Application.Contracts;
 using HotelListingAPI.Application.MappingProfiles;
+using HotelListingAPI.Application.Services;
+using HotelListingAPI.Common.Constants;
 using HotelListingAPI.Common.Models.Config;
-using HotelListing.Api.Middleware;
+using HotelListingAPI.Domain;
+using HotelListingAPI.Handlers;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.IdentityModel.Tokens;
+using Serilog;
+using Serilog.Events;
+using System.Text;
+using System.Text.Json;
+using System.Threading.RateLimiting;
 
 #region Logging
 // Logging
@@ -112,6 +107,10 @@ try
 
         // Identity Database store location
         .AddEntityFrameworkStores<HotelListingsDbContext>();
+    #endregion
+
+    #region CORS Service
+    builder.Services.AddCors();
     #endregion
 
     // HttpContextAccessor
@@ -253,7 +252,6 @@ try
     });
 
     #region HealthCheck Service
-
     builder.Services.AddHealthChecks()
         // Regular self-check
         .AddCheck("self", () => HealthCheckResult.Healthy("Application is running"),
@@ -277,9 +275,34 @@ try
 
     #endregion
 
+    #region Versioning - ApiVersioning
+    builder.Services.AddApiVersioning(options =>
+    {
+        options.AssumeDefaultVersionWhenUnspecified = true;
+        options.DefaultApiVersion = new ApiVersion(1, 0);
+        options.ReportApiVersions = true;
+        options.ApiVersionReader = new UrlSegmentApiVersionReader();
+    })
+.AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
+    #endregion
+
     var app = builder.Build();
 
     #region Middlewares
+
+    #region CORS Middleware
+    app.UseCors(opt =>
+           {
+               opt
+               .AllowAnyHeader()
+               .AllowAnyMethod()
+               .WithOrigins("https://localhost:3000");
+           });
+    #endregion
 
     // Exception Handler middleware
     app.UseExceptionHandler();

@@ -1,0 +1,41 @@
+2026-06-04 14:45:08.685 +03:00 [INF] Starting HotelListing API
+2026-06-04 14:45:09.628 +03:00 [INF] HotelListing API started successfully!
+2026-06-04 14:45:09.854 +03:00 [INF] Now listening on: http://localhost:5094
+2026-06-04 14:45:09.862 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-06-04 14:45:09.864 +03:00 [INF] Hosting environment: Development
+2026-06-04 14:45:09.867 +03:00 [INF] Content root path: E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI
+2026-06-04 14:53:17.882 +03:00 [INF] Application is shutting down...
+2026-06-04 14:55:10.237 +03:00 [INF] Starting HotelListing API
+2026-06-04 14:55:10.753 +03:00 [INF] HotelListing API started successfully!
+2026-06-04 14:55:10.974 +03:00 [INF] Now listening on: https://localhost:5001
+2026-06-04 14:55:10.980 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-06-04 14:55:10.981 +03:00 [INF] Hosting environment: Development
+2026-06-04 14:55:10.983 +03:00 [INF] Content root path: E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI
+2026-06-04 14:55:40.384 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+2026-06-04 14:55:41.871 +03:00 [INF] HTTP GET /api/auth/login responded 200 in 2597.4882ms
+2026-06-04 18:15:43.907 +03:00 [WRN] HTTP GET /api/countries responded 404 in 7.4186ms
+2026-06-04 18:15:43.936 +03:00 [WRN] HTTP GET /api/countries responded 404 in 0.0397ms
+2026-06-04 18:15:43.945 +03:00 [WRN] HTTP GET /api/countries responded 404 in 0.0184ms
+2026-06-04 18:18:13.904 +03:00 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-06-04 18:18:14.273 +03:00 [INF] HTTP GET /api/v1.0/Countries responded 200 in 528.0615ms
+2026-06-04 18:18:39.070 +03:00 [INF] HTTP GET /api/v1/countries responded 200 in 23.8613ms
+2026-06-04 18:18:39.079 +03:00 [INF] HTTP GET /api/v1/countries responded 200 in 5.3157ms
+2026-06-04 18:18:43.004 +03:00 [INF] HTTP GET /api/v1/countries responded 200 in 1.0483ms
+2026-06-04 18:18:43.007 +03:00 [INF] HTTP GET /api/v1/countries responded 200 in 0.9017ms
+2026-06-04 18:19:06.109 +03:00 [INF] HTTP GET /api/v1/countries responded 200 in 8.5335ms
+2026-06-04 18:19:06.123 +03:00 [INF] HTTP GET /api/v1/countries responded 200 in 0.9132ms
+2026-06-04 18:19:06.125 +03:00 [INF] HTTP GET /api/v1/countries responded 200 in 0.8172ms
+2026-06-04 18:24:48.102 +03:00 [INF] Application is shutting down...
+2026-06-04 18:29:13.276 +03:00 [INF] Starting HotelListing API
+2026-06-04 18:29:13.774 +03:00 [INF] HotelListing API started successfully!
+2026-06-04 18:29:14.014 +03:00 [INF] Now listening on: https://localhost:5001
+2026-06-04 18:29:14.019 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-06-04 18:29:14.020 +03:00 [INF] Hosting environment: Development
+2026-06-04 18:29:14.022 +03:00 [INF] Content root path: E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI
+2026-06-04 18:29:29.790 +03:00 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-06-04 18:29:30.522 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+2026-06-04 18:29:31.593 +03:00 [INF] HTTP GET /api/v1/countries responded 200 in 2126.8196ms
+2026-06-04 18:29:31.621 +03:00 [INF] HTTP GET /api/v1/countries responded 200 in 27.7449ms
+2026-06-04 18:50:29.517 +03:00 [INF] HTTP GET /api/v1/countries responded 200 in 238.8730ms
+2026-06-04 18:50:29.520 +03:00 [INF] HTTP GET /api/v1/countries responded 200 in 1.4430ms
+2026-06-04 18:53:15.704 +03:00 [INF] Application is shutting down...

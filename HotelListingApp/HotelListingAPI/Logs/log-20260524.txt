@@ -467,3 +467,17 @@ System.MissingMethodException: Method not found: 'System.String Microsoft.Entity
 2026-05-24 13:03:58.546 +03:00 [INF] HTTP GET /healthz/ready responded 200 in 30.4406ms
 2026-05-24 13:04:01.571 +03:00 [INF] HTTP GET /healthz/live responded 200 in 0.7753ms
 2026-05-24 13:04:34.706 +03:00 [INF] HTTP GET /healthz responded 200 in 104.4047ms
+2026-05-24 14:15:37.347 +03:00 [INF] Starting HotelListing API
+2026-05-24 14:15:37.865 +03:00 [INF] HotelListing API started successfully!
+2026-05-24 14:15:38.152 +03:00 [INF] Now listening on: https://localhost:7036
+2026-05-24 14:15:38.156 +03:00 [INF] Now listening on: http://localhost:5094
+2026-05-24 14:15:38.260 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-24 14:15:38.261 +03:00 [INF] Hosting environment: Development
+2026-05-24 14:15:38.263 +03:00 [INF] Content root path: E:\WebDev\Trevor\HotelMng\HotelListingApp\HotelListingAPI
+2026-05-24 14:15:56.326 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+2026-05-24 14:15:57.895 +03:00 [INF] HTTP GET /api/auth/login responded 200 in 2859.1862ms
+2026-05-24 14:16:44.994 +03:00 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-05-24 14:16:45.203 +03:00 [INF] HTTP GET /api/v1.0/Countries responded 200 in 383.4951ms
+2026-05-24 14:18:41.891 +03:00 [INF] HTTP GET /api/v1.0/Countries responded 200 in 19.7741ms
+2026-05-24 14:19:51.818 +03:00 [INF] HTTP GET /api/v1.0/Countries responded 200 in 13.0677ms
+2026-05-24 14:22:02.213 +03:00 [INF] HTTP GET /api/v1.0/Countries responded 200 in 8.4220ms
